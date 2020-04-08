@@ -4,7 +4,7 @@
       <!-- <img src="./assets/logo.png"> -->
       <router-view />
     </div>
-    <ToolBar />
+<!--    <ToolBar />-->
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px; */
-  height: 85vh;
+  height: 100vh;
   overflow: auto;
 }
 
