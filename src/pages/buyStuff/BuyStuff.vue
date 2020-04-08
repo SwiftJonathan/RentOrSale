@@ -1,6 +1,6 @@
 <template>
   <div class="buy_stuff">
-    <StuffTop />
+    <StuffTop msg="购买宝贝" />
     <StuffItem/>
     <StuffAddressBar />
     <div class="stuff_carry">
@@ -25,7 +25,7 @@
 
 <script>
   import StuffItem from './component/StuffItem'
-  import StuffTop from './component/StuffTop'
+  import StuffTop from '../../components/TopReturnBar'
   import StuffAddressBar from './component/StuffAddressBar'
   import Vue from 'vue';
   import { Panel } from 'vant';
