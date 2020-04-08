@@ -6,6 +6,8 @@ import Login from '@/pages/login/Login'
 import Register from '@/pages/register/Register'
 import StuffMessage from '@/pages/stuffMessage/StuffMessage'
 import BuyStuff from '@/pages/buyStuff/BuyStuff'
+import MyAddressEdit from '@/components/MyAddressEdit'
+import MyAddressList from '@/components/MyAddressList'
 
 Vue.use(Router)
 
@@ -40,6 +42,16 @@ export default new Router({
       path: '/buyStuff',
       name: 'BuyStuff',
       component: BuyStuff
+    },
+    {
+      path: '/myAddressEdit',
+      name: 'MyAddressEdit',
+      component: MyAddressEdit
+    },
+    {
+      path: '/myAddressList',
+      name: 'MyAddressList',
+      component: MyAddressList
     }
   ]
 })
