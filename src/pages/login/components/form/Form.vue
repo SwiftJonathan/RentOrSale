@@ -1,8 +1,8 @@
 <template>
   <div class="login_form">
-    <form onsubmit="">
-      <input width="80%" type="number" placeholder="手机号">
-      <input width="80%">
+    <form @submit.prevent="onSubmit">
+      <input v-model="phone" type="number" width="80%" placeholder="手机号" maxlength="11"required >
+      <input v-model="password" type="password" width="80%" placeholder="密码" required>
       <button class="btn" >登录</button>
     </form>
   </div>
@@ -10,7 +10,20 @@
 
 <script>
 export default {
-  name: "Form"
+  name: "Form",
+  data() {
+    return {
+      phone: '',
+      password: ''
+    };
+  },
+  methods: {
+    onSubmit(values) {
+      console.log('submit', values);
+      console.log('phone', this.phone);
+      console.log('password', this.password);
+    },
+  },
 };
 </script>
 <style>

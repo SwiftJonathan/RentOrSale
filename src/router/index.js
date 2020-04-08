@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import FirstPage from '@/pages/firstPage/FirstPage'
 import Login from '@/pages/login/Login'
 import Register from '@/pages/register/Register'
+import StuffMessage from '@/pages/stuffMessage/StuffMessage'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/stuffMessage',
+      name: 'StuffMessage',
+      component: StuffMessage
     }
   ]
 })
