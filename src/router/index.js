@@ -5,6 +5,7 @@ import FirstPage from '@/pages/firstPage/FirstPage'
 import Login from '@/pages/login/Login'
 import Register from '@/pages/register/Register'
 import StuffMessage from '@/pages/stuffMessage/StuffMessage'
+import BuyStuff from '@/pages/buyStuff/BuyStuff'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/stuffMessage',
       name: 'StuffMessage',
       component: StuffMessage
+    },
+    {
+      path: '/buyStuff',
+      name: 'BuyStuff',
+      component: BuyStuff
     }
   ]
 })
