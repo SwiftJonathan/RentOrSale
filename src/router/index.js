@@ -6,6 +6,7 @@ import Login from '@/pages/login/Login'
 import Register from '@/pages/register/Register'
 import StuffMessage from '@/pages/stuffMessage/StuffMessage'
 import BuyStuff from '@/pages/buyStuff/BuyStuff'
+import RentStuff from '@/pages/buyStuff/RentStuff'
 import MyAddressEdit from '@/components/MyAddressEdit'
 import MyAddressList from '@/components/MyAddressList'
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/buyStuff',
       name: 'BuyStuff',
       component: BuyStuff
+    },
+    {
+      path: '/rentStuff',
+      name: 'RentStuff',
+      component: RentStuff
     },
     {
       path: '/myAddressEdit',

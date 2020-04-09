@@ -27,7 +27,7 @@ export default {
   .login_bg{
     width: 100%;
     height: 100vh;
-    background-image: url("../../assets/image/logbg.jpg");
+    background-image: url("../../assets/image/login2.jpg");
     background-size: cover;
     display: flex;
 
