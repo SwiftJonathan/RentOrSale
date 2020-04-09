@@ -2,17 +2,7 @@
   <div class="buy_stuff">
     <StuffTop msg="租赁宝贝" />
     <StuffItem/>
-    <StuffAddressBar />
-    <div class="stuff_carry">
-      <van-row>
-        <van-col span="5">
-          <span>运费</span>
-        </van-col>
-        <van-col span="4" align="center" offset="15" class="cast_text">
-          12.00
-        </van-col>
-      </van-row>
-    </div>
+    <ProviderAddress />
     <div class="stuff_carry">
       <van-row>
         <van-col span="5">
@@ -47,6 +37,7 @@
   import StuffItem from './component/StuffItem'
   import StuffTop from '../../components/TopReturnBar'
   import StuffAddressBar from './component/StuffAddressBar'
+  import ProviderAddress from './component/ProviderAddress'
   import Vue from 'vue';
   import { Panel } from 'vant';
   import { SubmitBar } from 'vant';
@@ -58,7 +49,7 @@
   export default {
     name: "RentStuff",
     components: {
-      StuffItem, StuffTop, StuffAddressBar
+      StuffItem, StuffTop, StuffAddressBar, ProviderAddress
     },
   }
 </script>

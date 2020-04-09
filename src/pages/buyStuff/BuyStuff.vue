@@ -3,44 +3,7 @@
     <StuffTop msg="购买宝贝" />
     <StuffItem/>
 <!--    选择物品交易方式-->
-    <div class="post_select">
-      <van-row>
-        <van-col span="9">
-          <span>请选择物品交易方式</span>
-        </van-col>
-        <van-col span="14" align="center" offset="1" class="cast_text">
-          <van-radio-group v-model="postmethod" direction="horizontal">
-            <van-radio name="1" icon-size="18px">线下交易</van-radio>
-            <van-radio name="2" icon-size="18px">邮寄</van-radio>
-          </van-radio-group>
-        </van-col>
-      </van-row>
-    </div>
-<!--    邮寄-->
-    <div v-show="postmethod==2">
-      <StuffAddressBar />
-      <div class="stuff_carry">
-        <van-row>
-          <van-col span="5">
-            <span>运费</span>
-          </van-col>
-          <van-col span="4" align="center" offset="15" class="cast_text">
-            {{freight}}
-          </van-col>
-        </van-row>
-      </div>
-    </div>
-<!--    线下-->
-    <div v-show="postmethod==1">
-      <ProviderAddress />
-    </div>
-    <div class="pay_bar">
-      <van-submit-bar
-        :price="3020"
-        button-text="提交订单"
-        @submit="onSubmit"
-      />
-    </div>
+    <ProviderAddress />
   </div>
 </template>
 
