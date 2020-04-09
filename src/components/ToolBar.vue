@@ -1,10 +1,21 @@
 <template>
-  <div id="toolbar">
-    <div id="toolbar-item" v-for="(item) in menuInfo" :key="item.key">
-      <div>
-        <van-icon :name="item.icon" color="rgba(0,0,0,0.75)" size="1.2em" />
+  <div id="toolbar-wrapper">
+    <div id="toolbar">
+      <div
+        id="toolbar-item"
+        v-for="(item) in menuInfo"
+        :key="item.key"
+        @click="handleClickPageIcon(item.key)"
+      >
+        <span v-if="item.key !== currectPage">
+          <van-icon :name="item.icon" color="rgba(0,0,0,0.75)" size="1.2em" />
+        </span>
+        <div id="toolbar-text" v-if="item.key === currectPage">
+          <span>{{item.name}}</span>
+          <br />
+          <span id="toolbar-dot"></span>
+        </div>
       </div>
-      <div>{{item.name}}</div>
     </div>
   </div>
 </template>
@@ -17,43 +28,77 @@ export default {
   name: "Toolbar",
   data() {
     return {
-      currectPage: "",
+      currectPage: "firstPage",
       menuInfo: [
         {
           key: "firstPage",
-          name: "首页",
+          name: "Home",
           icon: "like-o"
         },
         {
           key: "info",
-          name: "首页",
+          name: "Publish",
           icon: "location-o"
         },
         {
           key: "personal",
-          name: "首页",
+          name: "Like",
           icon: "star-o"
+        },
+        {
+          key: "wode",
+          name: "Mine",
+          icon: "friends-o"
         }
       ]
     };
+  },
+  methods: {
+    handleClickPageIcon(key) {
+      this.currectPage = key;
+    }
   }
 };
 </script>
 
 <style scope>
-#toolbar {
-  height: 15vh;
+#toolbar-wrapper {
+  height: 10vh;
   width: 100%;
+  position: absolute;
+  bottom: 0px;
+  border-radius: 20px 20px 0px 0px;
+  box-shadow: 0px 5px 24px 0px rgba(0, 0, 0, 0.2s);
+  overflow: hidden;
+}
+#toolbar {
+  height: 10vh;
+  width: 100%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  background-color: rgba(255, 255, 255, 1);
 }
 
 #toolbar-item {
-  height: 100%;
+  height: 2em;
   width: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  /* background-color: red; */
+}
+
+#toolbar-text {
+  color: rgba(228, 128, 157, 1);
+  font-weight: 500;
+}
+
+#toolbar-dot {
+  display: inline-block;
+  height: 3px;
+  width: 3px;
+  background-color: rgba(228, 128, 157, 1);
+  position: relative;
+  top: -12px;
 }
 </style>

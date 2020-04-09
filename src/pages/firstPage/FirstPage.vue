@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="first-page">
     <WelcomeMessage />
 
     <Cates />
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 import WelcomeMessage from "./components/WelcomeMessage";
 import Cates from "./components/Cates";
 import List from "./components/List";
@@ -23,3 +22,8 @@ export default {
   }
 };
 </script>
+
+<style>
+.first-page {
+}
+</style>

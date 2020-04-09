@@ -1,19 +1,14 @@
 <template>
-  <div class="home_top">
-    <van-row>
-      <van-col span="20">大吉大利，万事亨通！</van-col>
-      <van-col span="4" align="right">
-        <van-icon name="search" size="20" @click="show = true" />
-      </van-col>
-    </van-row>
-    <van-row>
-      <van-col span="20">
-        <div class="little_log">
-          南昌大学
-          <van-icon name="location-o" size="12" />
-        </div>
-      </van-col>
-    </van-row>
+  <div class="welcome-message">
+    <div class="title-and-search">
+      <span>Hello! {{user.name}}</span>
+      <van-icon name="search" size="24" @click="show = true" />
+    </div>
+    <div class="location">
+      <span>Location</span>
+      <span class="colored">{{user.location}}</span>
+      <van-icon name="location-o" size="14" />
+    </div>
     <van-overlay :show="show" @click="show = false">
       <div class="wrapper">
         <div class="block" @click.stop>
@@ -35,11 +30,8 @@
 
 <script>
 import Vue from "vue";
-import { Col, Row } from "vant";
-import { Icon } from "vant";
-import { Overlay } from "vant";
-import { Search } from "vant";
-import { Toast } from "vant";
+import { Col, Row, Icon, Overlay, Search, Toast } from "vant";
+import { mapGetters } from "vuex";
 
 Vue.use(Search);
 Vue.use(Overlay);
@@ -55,6 +47,11 @@ export default {
       value: ""
     };
   },
+  computed: {
+    ...mapGetters({
+      user: "getUser"
+    })
+  },
   methods: {
     onSearch(val) {
       Toast(val);
@@ -67,29 +64,28 @@ export default {
 </script>
 
 <style scoped>
-.home_top {
-  /*height: 40px;*/
-  margin-top: 10px;
-}
-.van-row {
-  padding: 5px 20px;
-  /*margin-bottom: 10px;*/
-}
-.wrapper {
+.title-and-search {
   display: flex;
-  /*align-items: center;*/
-  /*justify-content: center;*/
-  height: 100%;
+  justify-content: space-between;
+  padding: 28px 28px 0px;
+  height: 1.5em;
+  align-items: center;
 }
-
-.block {
-  width: 100%;
-  height: 0px;
-  background-color: #fff;
+.title-and-search > span {
+  font-size: 24px;
+  font-weight: 700;
 }
-.little_log {
-  font-size: small;
-  margin-top: -10px;
-  margin-bottom: 8px;
+.location {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 1.5em;
+  padding: 14px 28px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.location > .colored {
+  color: rgba(236, 158, 187, 1);
+  margin-left: 1em;
 }
 </style>
