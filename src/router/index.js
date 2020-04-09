@@ -4,6 +4,12 @@ import HelloWorld from '@/components/HelloWorld'
 import FirstPage from '@/pages/firstPage/FirstPage'
 import Login from '@/pages/login/Login'
 import StuffList from '@/pages/StuffList/StuffList'
+import Register from '@/pages/register/Register'
+import StuffMessage from '@/pages/stuffMessage/StuffMessage'
+import BuyStuff from '@/pages/buyStuff/BuyStuff'
+import RentStuff from '@/pages/buyStuff/RentStuff'
+import MyAddressEdit from '@/components/MyAddressEdit'
+import MyAddressList from '@/components/MyAddressList'
 
 Vue.use(Router)
 
@@ -28,6 +34,36 @@ export default new Router({
       path: '/stuff-list',
       name: 'StuffList',
       component: StuffList
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
+    },
+    {
+      path: '/stuffMessage',
+      name: 'StuffMessage',
+      component: StuffMessage
+    },
+    {
+      path: '/buyStuff',
+      name: 'BuyStuff',
+      component: BuyStuff
+    },
+    {
+      path: '/rentStuff',
+      name: 'RentStuff',
+      component: RentStuff
+    },
+    {
+      path: '/myAddressEdit',
+      name: 'MyAddressEdit',
+      component: MyAddressEdit
+    },
+    {
+      path: '/myAddressList',
+      name: 'MyAddressList',
+      component: MyAddressList
     }
   ]
 })

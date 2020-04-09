@@ -3,7 +3,7 @@
     <div id="app">
       <router-view />
     </div>
-    <ToolBar />
+<!--    <ToolBar />-->
   </div>
 </template>
 
