@@ -10,6 +10,7 @@ import BuyStuff from '@/pages/buyStuff/BuyStuff'
 import RentStuff from '@/pages/buyStuff/RentStuff'
 import MyAddressEdit from '@/components/MyAddressEdit'
 import MyAddressList from '@/components/MyAddressList'
+import Publish from '@/pages/Publish/Publish'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/first-page',
       name: 'FirstPage',
       component: FirstPage
+    },
+    {
+      path: '/publish',
+      name: 'Publish',
+      component: Publish
     },
     {
       path: '/login',

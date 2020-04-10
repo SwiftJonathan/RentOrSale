@@ -24,6 +24,7 @@
 import Vue from "vue";
 import { Icon } from "vant";
 Vue.use(Icon);
+
 export default {
   name: "Toolbar",
   data() {
@@ -33,7 +34,8 @@ export default {
         {
           key: "firstPage",
           name: "Home",
-          icon: "like-o"
+          icon: "home-o",
+          router: "/first-page"
         },
         {
           key: "info",
@@ -41,14 +43,14 @@ export default {
           icon: "location-o"
         },
         {
-          key: "personal",
+          key: "like",
           name: "Like",
-          icon: "star-o"
+          icon: "like-o"
         },
         {
-          key: "wode",
+          key: "personal",
           name: "Mine",
-          icon: "friends-o"
+          icon: "contact"
         }
       ]
     };
