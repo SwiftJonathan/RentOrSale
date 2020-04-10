@@ -51,17 +51,17 @@ export default new Router({
       component: Register
     },
     {
-      path: '/stuffMessage',
+      path: '/stuff-message',
       name: 'StuffMessage',
       component: StuffMessage
     },
     {
-      path: '/buyStuff',
+      path: '/buy-stuff',
       name: 'BuyStuff',
       component: BuyStuff
     },
     {
-      path: '/rentStuff',
+      path: '/rent-stuff',
       name: 'RentStuff',
       component: RentStuff
     },
@@ -71,7 +71,7 @@ export default new Router({
       component: MyAddressEdit
     },
     {
-      path: '/myAddressList',
+      path: '/my-address-list',
       name: 'MyAddressList',
       component: MyAddressList
     },

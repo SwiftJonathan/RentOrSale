@@ -1,19 +1,20 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="list">
+    <!-- <div>{{firstPageStuffList}}</div> -->
     <div class="list-split-line"></div>
     <div class="list-header">
       <div class="title">As You Like</div>
       <div class="button">Refresh</div>
     </div>
     <div
-      v-for="(img,index) in imageList"
-      v-lazy:background-image="img"
+      v-for="(stuff,index) in firstPageStuffList"
+      v-lazy:background-image="stuff.img"
       :key="index"
       class="stuff-item"
     >
-      <div class="title">Title</div>
+      <div class="title">{{stuff.name}}</div>
       <div class="score">
-        <span>Score</span>
+        <span>{{stuff.price}}</span>
         <van-icon name="star-o" />
       </div>
     </div>
@@ -26,6 +27,7 @@ import Vue from "vue";
 import { Lazyload } from "vant";
 import { Grid, GridItem } from "vant";
 import { Col, Row } from "vant";
+import { mapActions, mapGetters } from "vuex";
 
 Vue.use(Col);
 Vue.use(Row);
@@ -41,14 +43,20 @@ Vue.use(Lazyload, {
 export default {
   name: "HomeLazyLoad",
   data() {
-    return {
-      imageList: [
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=78c4d6302ee3b22db7d03c9854504512&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20100%2F133%2Fw2000h1333%2F20200225%2F95db-ipzreiv7562157.jpg",
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=58bb9214f134c0808eba9d5aa83e3c6e&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201311%2F17%2F174124tp3sa6vvckc25oc8.jpg",
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433452794&di=1263fa7241e1b843f0967c466f7c8478&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2155983538%2C3860699715%26fm%3D214%26gp%3D0.jpg",
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=f3b43387b9aad7ee53d9d893778a30e5&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F53a15a1343174.jpg"
-      ]
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters({
+      firstPageStuffList: "getFirstPageStuffList"
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchFirstPageStuffList: "fetchFirstPageStuffList"
+    })
+  },
+  mounted() {
+    this.fetchFirstPageStuffList();
   }
 };
 </script>

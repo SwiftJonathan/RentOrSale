@@ -4,7 +4,9 @@ const state = {
         location: 'BeiJing China'
     },
     todoList: ['1', '2', '3'],
-    stuffList: []
+    stuffList: [],
+
+    firstPageStuffList: []
 };
 
 export default state;

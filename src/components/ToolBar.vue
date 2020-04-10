@@ -5,7 +5,7 @@
         id="toolbar-item"
         v-for="(item) in menuInfo"
         :key="item.key"
-        @click="handleClickPageIcon(item.key)"
+        @click="handleClickPageIcon(item)"
       >
         <span v-if="item.key !== currectPage">
           <van-icon :name="item.icon" color="rgba(0,0,0,0.75)" size="1.2em" />
@@ -24,6 +24,7 @@
 import Vue from "vue";
 import { Icon } from "vant";
 Vue.use(Icon);
+import router from "vue-router";
 
 export default {
   name: "Toolbar",
@@ -40,7 +41,8 @@ export default {
         {
           key: "info",
           name: "Publish",
-          icon: "location-o"
+          icon: "goods-collect-o",
+          router: "/publish"
         },
         {
           key: "like",
@@ -50,14 +52,18 @@ export default {
         {
           key: "personal",
           name: "Mine",
-          icon: "contact"
+          icon: "contact",
+          router: "/personal"
         }
       ]
     };
   },
   methods: {
-    handleClickPageIcon(key) {
-      this.currectPage = key;
+    handleClickPageIcon(item) {
+      this.currectPage = item.key;
+      this.$router.push({
+        path: item.router
+      });
     }
   }
 };

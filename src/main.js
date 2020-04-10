@@ -6,6 +6,10 @@ import router from './router'
 // import Ionic from '@ionic/vue'
 import store from './store/index.js'
 import mutations from './store//mutations'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false;
 // Vue.use(Ionic);
