@@ -1,12 +1,13 @@
 <template>
     <div class="list_item">
       <van-card
-        v-for="item in list"
+        v-for="(item,index) in list"
         num="2"
         :price="item.price"
         :desc="item.desc"
         :title="item.title"
         :thumb="item.thumb"
+        :key="index"
       />
     </div>
 </template>
