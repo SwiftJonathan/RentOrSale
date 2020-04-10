@@ -10,14 +10,11 @@ import BuyStuff from '@/pages/buyStuff/BuyStuff'
 import RentStuff from '@/pages/buyStuff/RentStuff'
 import MyAddressEdit from '@/components/MyAddressEdit'
 import MyAddressList from '@/components/MyAddressList'
-<<<<<<< HEAD
 import Publish from '@/pages/Publish/Publish'
-=======
 import Personal from '../pages/personal/Personal'
 import PersonalInList from '../pages/personalList/PersonalInList'
 import PersonalOutList from '../pages/personalList/PersonalOutList'
 import Order from '../pages/order/Order'
->>>>>>> 0c8156d17f80fd5a8f8bd211f761f04df42fb002
 
 Vue.use(Router)
 
