@@ -1,24 +1,24 @@
 <template>
     <div class="type_div">
       <div class="type_block_a">
-        <div class="type_con">
+        <div class="type_con" @click="handleClickPulish">
           <van-icon name="gift" color="#FFFFFF" size="7vw" />
           <div class="type_name">我发布的</div>
         </div>
       </div>
-      <div class="type_block_b">
+      <div class="type_block_b" @click="handleClickSail">
         <div class="type_con">
           <van-icon name="shop" color="#40976D" size="7vw" />
           <div class="type_name">我卖出的</div>
         </div>
       </div>
-      <div class="type_block_c">
+      <div class="type_block_c" @click="handleClickBuy">
         <div class="type_con">
           <van-icon name="award" color="#E3CA93" size="7vw" />
           <div class="type_name">我买到的</div>
         </div>
       </div>
-      <div class="type_block_d">
+      <div class="type_block_d" @click="handleClickRent">
         <div class="type_con">
           <van-icon name="diamond" color="#FFFFFF" size="7vw" />
           <div class="type_name">我租到的</div>
@@ -34,7 +34,49 @@
 
   Vue.use(Icon);
     export default {
-        name: "Types"
+      name: "Types",
+      methods: {
+        handleClickPulish() {
+          this.$router.push({
+            name: "PersonalOutList",
+            params: {
+              name: "我发布的",
+              //publishOrSail 发布或者卖出： 0发布，1卖出
+              publishOrSail: "0"
+            }
+          })
+        },
+        handleClickSail() {
+          this.$router.push({
+            name: "PersonalOutList",
+            params: {
+              name: "我卖出的",
+              //publishOrSail 发布或者卖出： 0发布，1卖出
+              publishOrSail: "1"
+            }
+          })
+        },
+          handleClickBuy() {
+          this.$router.push({
+            name: "PersonalInList",
+            params: {
+              name: "我买到的",
+              //saleOrRent: 0买到，1租入
+              saleOrRent: "0"
+            }
+          })
+        },
+        handleClickRent() {
+          this.$router.push({
+            name: "PersonalInList",
+            params: {
+              name: "我租到的",
+              //saleOrRent: 0买到，1租入
+              saleOrRent: "1"
+            }
+          })
+        }
+      }
     }
 </script>
 
