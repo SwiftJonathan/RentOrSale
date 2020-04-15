@@ -6,7 +6,10 @@ const state = {
     todoList: ['1', '2', '3'],
     stuffList: [],
 
-    firstPageStuffList: []
+  firstPageStuffList: [],
+  categoryList: [],
+  saleStuffList: [],
+  rentStuffList: []
 };
 
 export default state;

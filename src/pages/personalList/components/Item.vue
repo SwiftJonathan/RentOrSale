@@ -1,29 +1,34 @@
 <template>
     <div class="list_item">
-      <van-card
-        v-for="(item,index) in list"
-        num="2"
-        :price="item.price"
-        :desc="item.desc"
-        :title="item.title"
-        :thumb="item.thumb"
-        :key="index"
-      />
+      <div>
+        <van-card
+          v-for="(item,index) in (rent_or_sell === '0' ? saleStuffList: rentStuffList)"
+          num="2"
+          :price="item.price"
+          :desc="item.detail"
+          :title="item.name + item.id"
+          :thumb="item.img"
+          :key="index"
+        />
+      </div>
     </div>
 </template>
 
 <script>
   import Vue from 'vue';
   import { Card } from 'vant';
+  import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Card);
     export default {
-        name: "Item",
+      name: "Item",
+      //RentOrSell: index: 1转卖，2租出
+      props: ["rent_or_sell"],
       data() {
           return {
-            props: ['RentOrSail'],
+            RentOrSail: '0',
             list: [
-              {
+              /*{
                 id: '1',
                 name: 'item1',
                 price: '2.00',
@@ -38,11 +43,16 @@
                 desc: 'this id desc 2',
                 title: 'title 2',
                 thumb: 'https://img.yzcdn.cn/vant/cat.jpeg'
-              }
+              }*/
             ],
         }
       },
-
+      computed: {
+        ...mapGetters({
+          saleStuffList: "getSaleStuffList",
+          rentStuffList: "getRentStuffList"
+        })
+      }
     }
 </script>
 

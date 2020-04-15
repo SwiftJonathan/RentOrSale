@@ -1,6 +1,6 @@
 import { SET_TODO_LIST } from "./mutation-types"
 import axios from 'axios';
-
+import {HTTP_URL} from '@/store/const.js'
 export const fetchList = (context) => {
     console.log('action fetchList');
 
@@ -11,7 +11,7 @@ export const fetchList = (context) => {
             res();
         }, 5000);
     })
-}
+};
 
 export const fetchStuffList = (context) => {
     new Promise((rel, rej) => {
@@ -37,14 +37,10 @@ export const fetchStuffList = (context) => {
         }
         context.commit('setStuffList', res);
     })
-}
+};
 
 export const fetchFirstPageStuffList = (context) => {
     console.log('fetchFirstPageStuffList');
-    const imageOne = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=78c4d6302ee3b22db7d03c9854504512&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20100%2F133%2Fw2000h1333%2F20200225%2F95db-ipzreiv7562157.jpg";
-    const imageTwo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=58bb9214f134c0808eba9d5aa83e3c6e&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201311%2F17%2F174124tp3sa6vvckc25oc8.jpg";
-    const imageThree = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433452794&di=1263fa7241e1b843f0967c466f7c8478&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2155983538%2C3860699715%26fm%3D214%26gp%3D0.jpg";
-    const imageFour = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=f3b43387b9aad7ee53d9d893778a30e5&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F53a15a1343174.jpg";
     const mockData = [
         {
             "id": 1,
@@ -66,7 +62,7 @@ export const fetchFirstPageStuffList = (context) => {
             "updateTime": "2020-04-05T14:50:26.006+0000",
             "updateBy": 0,
             "isDeleted": 0,
-            "img": imageOne,
+            "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=78c4d6302ee3b22db7d03c9854504512&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20100%2F133%2Fw2000h1333%2F20200225%2F95db-ipzreiv7562157.jpg",
             "ownerName": null,
             "ownerPhone": null,
             "ownerAddress": null
@@ -91,7 +87,7 @@ export const fetchFirstPageStuffList = (context) => {
             "updateTime": "2020-04-05T14:50:26.709+0000",
             "updateBy": 0,
             "isDeleted": 0,
-            "img": imageTwo,
+            "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=58bb9214f134c0808eba9d5aa83e3c6e&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201311%2F17%2F174124tp3sa6vvckc25oc8.jpg",
             "ownerName": null,
             "ownerPhone": null,
             "ownerAddress": null
@@ -116,7 +112,7 @@ export const fetchFirstPageStuffList = (context) => {
             "updateTime": "2020-04-05T14:50:28.225+0000",
             "updateBy": 0,
             "isDeleted": 0,
-            "img": imageThree,
+            "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433452794&di=1263fa7241e1b843f0967c466f7c8478&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D2155983538%2C3860699715%26fm%3D214%26gp%3D0.jpg",
             "ownerName": null,
             "ownerPhone": null,
             "ownerAddress": null
@@ -141,7 +137,7 @@ export const fetchFirstPageStuffList = (context) => {
             "updateTime": "2020-04-09T08:04:36.000+0000",
             "updateBy": 5,
             "isDeleted": 0,
-            "img": imageFour,
+            "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=f3b43387b9aad7ee53d9d893778a30e5&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F53a15a1343174.jpg",
             "ownerName": null,
             "ownerPhone": null,
             "ownerAddress": null
@@ -166,7 +162,7 @@ export const fetchFirstPageStuffList = (context) => {
             "updateTime": "2020-04-05T15:39:05.000+0000",
             "updateBy": 0,
             "isDeleted": 0,
-            "img": imageOne,
+            "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=78c4d6302ee3b22db7d03c9854504512&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20100%2F133%2Fw2000h1333%2F20200225%2F95db-ipzreiv7562157.jpg",
             "ownerName": null,
             "ownerPhone": null,
             "ownerAddress": null
@@ -191,24 +187,125 @@ export const fetchFirstPageStuffList = (context) => {
             "updateTime": "2020-04-05T15:40:25.000+0000",
             "updateBy": 0,
             "isDeleted": 0,
-            "img": imageTwo,
+            "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433404356&di=78c4d6302ee3b22db7d03c9854504512&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20100%2F133%2Fw2000h1333%2F20200225%2F95db-ipzreiv7562157.jpg",
             "ownerName": null,
             "ownerPhone": null,
             "ownerAddress": null
         }
     ];
     try {
-        axios.get(`/pro/allPro`)
+        axios.get(`${HTTP_URL}/pro/allPro`)
             .then((res) => {
-                context.commit('setFirstPageStuffList', res);
+              if (res.status === 200 && res.data) {
+                context.commit('setFirstPageStuffList', res.data);
+              }else {
+                console.log("pro use mock data");
+                context.commit('setFirstPageStuffList', mockData);
+              }
             })
-            .finally((res) => {
-                if (!res || !Array.isArray(res) || res.length === 0) {
-                    context.commit('setFirstPageStuffList', mockData);
-                }
-            });
     }
     catch (e) {
-        context.commit('setFirstPageStuffList', mockData);
+      console.log("pro use mock data");
+      context.commit('setFirstPageStuffList', mockData);
     }
-}
+};
+
+export const fetchCategoryList = (context) => {
+    console.log('fetchCategoryList');
+    const mockData = [
+      {
+        "id": 1,
+        "name": "二手图书",
+        "updateTime": "2020-04-10T02:13:02.000+0000",
+        "createBy": "0",
+        "updateBy": "1999-12-31T16:00:00.000+0000",
+        "isDeleted": 0
+      },
+      {
+        "id": 2,
+        "name": "美妆",
+        "updateTime": "2020-04-10T02:15:29.000+0000",
+        "createBy": "0",
+        "updateBy": "1999-12-31T16:00:00.000+0000",
+        "isDeleted": 0
+      },
+      {
+        "id": 3,
+        "name": "手机数码",
+        "updateTime": "2020-04-10T02:15:44.000+0000",
+        "createBy": "0",
+        "updateBy": "1999-12-31T16:00:00.000+0000",
+        "isDeleted": 0
+      },
+      {
+        "id": 4,
+        "name": "宠物用品",
+        "updateTime": "2020-04-10T02:16:36.000+0000",
+        "createBy": "0",
+        "updateBy": "1999-12-31T16:00:00.000+0000",
+        "isDeleted": 0
+      }
+    ]
+    try {
+      axios.get(`${HTTP_URL}/cate/allCate`)
+        .then((res) => {
+          if (res.status === 200 && res.data) {
+            context.commit('setCategoryList', res.data);
+          }else{
+            context.commit('setCategoryList', mockData);
+          }
+        })
+    }
+    catch (e) {
+      console.log("cate use mock data4");
+      context.commit('setCategoryList', mockData);
+    }
+};
+
+export const fetchSaleStuffList = (context, payload) => {
+  const {type} = payload;
+  const {user_id} = payload;
+//type:0未卖出， 1已卖出， 买入
+  console.log("salepayload", payload);
+  let request_type = "stuffNotSell";
+  if (type === '0')
+    request_type = "stuffNotSell";
+  else if (type === '1')
+    request_type = "stuffSell";
+  else if (type === 2 || type === '2')
+    request_type = "stuffBuyIn";
+  try {
+    axios.get(`${HTTP_URL}/pro/${request_type}/${user_id}`)
+      .then((res) => {
+        console.log("fetchSaleStuffList res", res);
+        context.commit('setSaleStuffList', res.data);
+      })
+  }
+  catch (e) {
+    console.log("fetchSaleStuffList is error", e);
+  }
+};
+
+export const fetchRentStuffList = (context, payload) => {
+  console.log("rentpayload", payload);
+  const {type} = payload;
+  const {user_id} = payload;
+//type:0未租出， 1已租出， 租入
+  let request_type = "stuffNotRent";
+  if (type === '0')
+    request_type = "stuffNotRent";
+  else if (type === '1')
+    request_type = "stuffRent";
+  else if (type === 2 || type === '2')
+    request_type = "stuffRentIn";
+  try {
+    axios.get(`${HTTP_URL}/pro/${request_type}/${user_id}`)
+      .then((res) => {
+        console.log("fetchRentStuffList res", res);
+        context.commit('setRentStuffList', res.data);
+      })
+  }
+  catch (e) {
+    console.log("fetchRentStuffList is error", e);
+  }
+};

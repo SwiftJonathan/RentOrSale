@@ -14,14 +14,14 @@
       <div class="description">Here some desctiption to sale.</div>
     </div>
 
-    <van-form @submit="onSubmit">
+    <van-form id="formCon" @submit="onSubmit"  enctype="multipart/form-data">
       <div class="title">
-        <van-field v-model="title" label="发布标题" placeholder="请输入发布标题" name="title" />
+        <van-field v-model="name" label="发布标题" placeholder="请输入发布标题" name="name" />
       </div>
 
       <div class="description">
         <van-field
-          v-model="description"
+          v-model="detail"
           rows="3"
           autosize
           label="商品描述"
@@ -29,7 +29,7 @@
           maxlength="100"
           placeholder="请输入商品描述"
           show-word-limit
-          name="description"
+          name="detail"
         />
       </div>
       <div class="price">
@@ -40,7 +40,7 @@
       </div>
 
       <div class="uploader">
-        <van-uploader v-model="fileList" multiple name="fileList" :after-read="handleAfterRead" />
+        <van-uploader v-model="fileList" multiple name="fileList" />
       </div>
 
       <div class="submit">
@@ -52,7 +52,10 @@
   </div>
 </template>
 
+
 <script>
+import axios from 'axios';
+import {HTTP_URL} from '@/store/const.js'
 import Vue from "vue";
 import { Field, Uploader, CheckboxGroup, Checkbox } from "vant";
 import { Form } from "vant";
@@ -67,10 +70,10 @@ export default {
   name: "Publish",
   data() {
     return {
-      title: "",
+      name: "",
       price: "",
       freight: "",
-      description: "",
+      detail: "",
       checkboxGroup: [],
       fileList: [
         // { url: "https://img.yzcdn.cn/vant/leaf.jpg" },
@@ -79,24 +82,22 @@ export default {
     };
   },
   methods: {
-    handleAfterRead(file) {
-      console.log(file);
-      console.log(this.fileList);
-    },
     onSubmit(values) {
       let data = new FormData();
-      data.append(
-        "fileList",
-        this.fileList.map(file => {
-          return file.file;
-        })
-      );
+      this.fileList.map(element => {
+        console.log("file", element.file);
+        data.append("fileList", element.file, element.file.name);
+      });
+      for (let key of data.getAll("fileList")){
+        console.log("data.fileLIst in for", key);
+      }
       for (let key in values) {
         data.append(key, values[key]);
       }
-      console.log(data.get("fileList").toString());
-      axios
-        .post("url", data, {
+      for (let key of data.keys()) {
+        console.log(key, data.getAll(key));
+      }
+      axios.post(`${HTTP_URL}/util/uploadImg`, data, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
@@ -181,11 +182,7 @@ export default {
   margin-bottom: 4px;
 }
 
-.submit {
-  padding: 0px 14px;
-}
-
-.submit > .button {
+.submit_btn {
   position: absolute;
   bottom: 15vh;
   width: 94vw;
@@ -194,10 +191,9 @@ export default {
   background-color: rgba(22, 23, 55, 1);
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: rgba(240, 240, 240, 1);
-  font-size: 20px;
-  font-weight: 500;
-  border-radius: 2px;
+}
+.submit_btn > .button {
+  /* margin: 0px 28px; */
+  width: 80vw;
 }
 </style>

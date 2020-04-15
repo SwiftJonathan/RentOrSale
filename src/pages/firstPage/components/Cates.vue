@@ -1,17 +1,20 @@
 <template>
   <div class="cates">
-    <div v-for="(cate,index) in cates" :key="index" class="cate-item">
-      <div class="body" :style="{backgroundColor : cate.backgroundColor}">
-        <van-icon :name="cate.icon" size="1.5em" :color="cate.color" />
+
+    <div v-for="(cate,index) in categoryList" :key="index" class="cate-item">
+      <div class="body" :style="{backgroundColor : backgroundColor[index]}">
+        <van-icon :name="icons[index]" size="1.5em" :color="color[index]" />
       </div>
-      <span class="title">{{cate.tag}}</span>
+      <span class="title">{{cate.name}}</span>
     </div>
+<!--    <div>{{categoryList}}</div>-->
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import { Grid, GridItem } from "vant";
+import { mapActions, mapGetters } from "vuex";
 
 Vue.use(Grid);
 Vue.use(GridItem);
@@ -19,6 +22,9 @@ export default {
   name: "Cates",
   data() {
     return {
+      icons: ["column","photograph","gem","award"],
+      backgroundColor: ["rgba(240,245,248,1)","rgba(254,245,243,1)","rgba(254,248,242,1)","rgba(244,243,251)"],
+      color: ["rgba(65,127,138,1)", "rgba(247,147,153,1)", "rgba(245,169,120,1)", "rgba(154,148,201,1)"],
       cates: [
         {
           tag: "二手图书",
@@ -46,6 +52,19 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    ...mapGetters({
+      categoryList: "getCategoryList"
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchCategoryList: "fetchCategoryList"
+    })
+  },
+  mounted() {
+    this.fetchCategoryList();
   }
 };
 </script>

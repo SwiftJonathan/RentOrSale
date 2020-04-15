@@ -66,7 +66,7 @@ export default new Router({
       component: RentStuff
     },
     {
-      path: '/myAddressEdit',
+      path: '/my-address-edit',
       name: 'MyAddressEdit',
       component: MyAddressEdit
     },
@@ -81,12 +81,12 @@ export default new Router({
       component: Personal
     },
     {
-      path: '/personalInList',
+      path: '/personal-in-list',
       name: 'PersonalInList',
       component: PersonalInList
     },
     {
-      path: '/personalOutList',
+      path: '/personal-out-list',
       name: 'PersonalOutList',
       component: PersonalOutList
     },
