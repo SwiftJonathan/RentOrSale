@@ -1,27 +1,42 @@
 <template>
   <div class="stuff-list">
-    <div class="stuff-list-tools">
-      <div class="stuff-list-back">
-        <van-icon name="arrow-left" color="rgba(0,0,0,0.75)" size="1.5em" />
+    <div class="tools">
+      <div class="back">
+        <van-icon name="down" color="rgba(255,255,255,1)" size="1.5em" />
       </div>
-      <div class="stuff-list-info">
-        <van-icon name="ellipsis" />
+      <div class="info">
+        <van-icon name="ellipsis" color="rgba(255,255,255,1)" size="1.5em" />
+      </div>
+      <div class="description">
+        <div>Here will show different stuff message by change stuff.</div>
+        <div>Some extra message may be needed.</div>
+      </div>
+      <div class="select">
+        <div>
+          <span class="new">New</span>
+          <span class="most-viewed">Most Viewed</span>
+        </div>
+        <div class="search">
+          <van-icon name="search" size="20px" />
+        </div>
       </div>
     </div>
-    <div class="stuff-list-swipper">
-      <StuffSwipper />
+
+    <div class="list">
+      <List />
     </div>
   </div>
 </template>
 
 <script>
 import StuffSwipper from "./components/StuffSwipper";
+import List from "./components/List";
 import { Icon } from "vant";
 import Vue from "vue";
 Vue.use(Icon);
 export default {
   name: "StuffList",
-  components: { StuffSwipper }
+  components: { StuffSwipper, List }
 };
 </script>
 
@@ -30,44 +45,67 @@ export default {
   background-color: rgba(243, 244, 249, 1);
   position: relative;
   height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  overflow: auto;
 }
-.stuff-list-tools {
+.stuff-list > .tools {
   background-color: rgba(18, 24, 40, 1);
-  height: 60vh;
+  height: 20vh;
   width: 100%;
   position: relative;
   border-radius: 0px 0px 0px 64px;
   z-index: 10;
+  position: relative;
+  z-index: 10;
+  padding: 5em 0em 0em;
 }
-.stuff-list-back {
+.stuff-list > .tools > .back {
   height: 32px;
   width: 32px;
-  background-color: rgba(255, 255, 255, 1);
+  /* background-color: rgba(255, 255, 255, 1); */
   position: absolute;
-  left: 2em;
-  top: 1em;
+  left: 28px;
+  top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  /* border-radius: 8px; */
+  transform: rotate(90deg);
+}
+.stuff-list > .tools > .info {
+  height: 32px;
+  width: 32px;
+  /* background-color: rgba(255, 255, 255, 1); */
+  position: absolute;
+  right: 28px;
+  top: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  /* border-radius: 8px; */
 }
-.stuff-list-info {
-  height: 32px;
-  width: 32px;
-  background-color: rgba(255, 255, 255, 1);
-  position: absolute;
-  right: 2em;
-  top: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-}
-
-.stuff-list-swipper {
-  position: absolute;
-  bottom: 12vh;
+.stuff-list > .tools > .description {
+  padding: 0px 28px;
   z-index: 20;
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+}
+.stuff-list > .tools > .select {
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  justify-content: space-between;
+}
+.stuff-list > .tools > .select > .new {
+  margin-right: 28px;
+}
+.stuff-list > .tools > .select > .most-viewed {
+  margin-right: 28px;
+}
+.stuff-list > .tools > .select > .search {
+  margin-right: 28px;
 }
 </style>

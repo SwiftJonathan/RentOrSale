@@ -198,7 +198,7 @@ export const fetchFirstPageStuffList = (context) => {
         }
     ];
     try {
-        axios.get('/pro/allPro')
+        axios.get(`/pro/allPro`)
             .then((res) => {
                 context.commit('setFirstPageStuffList', res);
             })

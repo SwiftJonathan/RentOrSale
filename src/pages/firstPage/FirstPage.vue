@@ -4,7 +4,9 @@
 
     <Cates />
 
-    <List />
+    <!-- <List /> -->
+
+    <Swipper />
   </div>
 </template>
 
@@ -12,18 +14,22 @@
 import WelcomeMessage from "./components/WelcomeMessage";
 import Cates from "./components/Cates";
 import List from "./components/List";
+import Swipper from "./components/Swipper";
 
 export default {
   name: "FirstPage",
   components: {
     WelcomeMessage,
     Cates,
-    List
+    List,
+    Swipper
   }
 };
 </script>
 
 <style>
 .first-page {
+  background-color: rgba(243, 244, 249, 1);
+  height: 100vh;
 }
 </style>
