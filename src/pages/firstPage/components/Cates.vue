@@ -1,7 +1,6 @@
 <template>
   <div class="cates">
-
-    <div v-for="(cate,index) in categoryList" :key="index" class="cate-item">
+    <div v-for="(cate,index) in categoryList" :key="index" class="cate-item" @click="handleCateClick(cate.id)">
       <div class="body" :style="{backgroundColor : backgroundColor[index]}">
         <van-icon :name="icons[index]" size="1.5em" :color="color[index]" />
       </div>
@@ -61,7 +60,18 @@ export default {
   methods: {
     ...mapActions({
       fetchCategoryList: "fetchCategoryList"
-    })
+    }),
+    handleCateClick(id) {
+      console.log("handleCateClick id", id);
+      this.$router.push({
+        name: "StuffList",
+        params: {
+          cateId: id,
+          //publishOrSail 发布或者卖出： 0发布，1卖出
+          cateOrLike: "0"
+        }
+      })
+    }
   },
   mounted() {
     this.fetchCategoryList();

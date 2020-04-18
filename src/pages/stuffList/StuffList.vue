@@ -33,10 +33,28 @@ import StuffSwipper from "./components/StuffSwipper";
 import List from "./components/List";
 import { Icon } from "vant";
 import Vue from "vue";
+import { mapActions, mapGetters } from "vuex";
 Vue.use(Icon);
 export default {
   name: "StuffList",
-  components: { StuffSwipper, List }
+  components: { StuffSwipper, List },
+  methods: {
+    ...mapActions({
+      fetchFirstPageStuffList: "fetchFirstPageStuffList",
+      fetchCateStuffList: "fetchCateStuffList",
+      fetchLikeStuffList: "fetchLikeStuffList"
+    })
+  },
+  mounted() {
+    console.log("StuffList params",this.$route.params);
+    if (this.$route.params.cateOrLike === '0'){
+      this.fetchCateStuffList({cate_id: this.$route.params.cateId});
+    } else if (this.$route.params.cateOrLike === '1') {
+      this.fetchLikeStuffList({name: this.$route.params.name})
+    }else {
+      this.fetchFirstPageStuffList();
+    }
+  }
 };
 </script>
 

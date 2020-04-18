@@ -38,11 +38,18 @@
       <div class="freight">
         <van-field v-model="freight" type="digit" label="运费" placeholder="请输入发布运费" name="freight" />
       </div>
+      <div class="deposit" v-show="SaleOrRent ==='1'">
+        <van-field v-model="deposit" type="digit" label="押金" placeholder="请输入押金" name="deposit" />
+      </div>
 
       <div class="uploader">
         <van-uploader v-model="fileList" multiple name="fileList" />
       </div>
 
+      <div>
+        <van-field type="hidden" name="providerUserId" v-model="providerUserId" />
+        <van-field type="hidden" name="rentPrice" v-model="price" />
+      </div>
       <div class="submit">
         <div class="button">
           <button type="submit">Publish</button>
@@ -54,12 +61,13 @@
 
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import {HTTP_URL} from '@/store/const.js'
 import Vue from "vue";
 import { Field, Uploader, CheckboxGroup, Checkbox } from "vant";
 import { Form } from "vant";
 import axios from "axios";
+
 
 Vue.use(Form);
 Vue.use(Field);
@@ -72,17 +80,25 @@ export default {
     return {
       name: "",
       price: "",
+      //运费
       freight: "",
       detail: "",
       checkboxGroup: [],
+      providerUserId: "7",
       fileList: [
         // { url: "https://img.yzcdn.cn/vant/leaf.jpg" },
         // { url: "https://cloud-image", isImage: true }
-      ]
+      ],
+      //转卖或租赁：0转卖， 1租赁
+      SaleOrRent: "1",
+      //押金
+      deposit: "",
+      rentPrice: "",
     };
   },
   methods: {
     onSubmit(values) {
+      console.log("values", values);
       let data = new FormData();
       this.fileList.map(element => {
         console.log("file", element.file);
@@ -97,7 +113,10 @@ export default {
       for (let key of data.keys()) {
         console.log(key, data.getAll(key));
       }
-      axios.post(`${HTTP_URL}/util/uploadImg`, data, {
+      let req_url = `${HTTP_URL}/pro/addSell`;
+      if (this.SaleOrRent === '1')
+        req_url = `${HTTP_URL}/pro/addRent`;
+      axios.post(req_url, data, {
           headers: {
             "Content-Type": "multipart/form-data"
           }

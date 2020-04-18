@@ -7,26 +7,28 @@
           :price="item.price"
           :desc="item.detail"
           :title="item.name + item.id"
-          :thumb="item.img"
-          :key="index"
-        />
-      </div>
+          :thumb="item.img ? item.img : ((item.proimgs == null || item.proimgs.length === 0) ? noImageUrl : item.proimgs[0].imgUrl)"
+        :key="index"
+    />
     </div>
-</template>
+    </div>
+    </template>
 
-<script>
+    <script>
+      import {NO_IMG_URL} from '@/store/const.js'
   import Vue from 'vue';
   import { Card } from 'vant';
   import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Card);
-    export default {
+  export default {
       name: "Item",
       //RentOrSell: index: 1转卖，2租出
       props: ["rent_or_sell"],
       data() {
           return {
             RentOrSail: '0',
+            noImageUrl: NO_IMG_URL,
             list: [
               /*{
                 id: '1',

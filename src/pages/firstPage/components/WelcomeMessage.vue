@@ -55,6 +55,15 @@ export default {
   methods: {
     onSearch(val) {
       Toast(val);
+      console.log("handleSearch val", val);
+      this.$router.push({
+        name: "StuffList",
+        params: {
+          name: val,
+          //publishOrSail 发布或者卖出： 0发布，1卖出
+          cateOrLike: "1"
+        }
+      })
     },
     onCancel() {
       Toast("取消");

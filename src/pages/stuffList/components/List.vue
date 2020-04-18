@@ -8,7 +8,7 @@
     </div>
     <div
       v-for="(stuff,index) in firstPageStuffList"
-      v-lazy:background-image="stuff.img"
+      v-lazy:background-image="stuff.img ? stuff.img : ((stuff.proimgs == null || stuff.proimgs.length === 0) ? noImageUrl : stuff.proimgs[0].imgUrl)"
       :key="index"
       class="stuff-item"
     >
@@ -28,6 +28,7 @@ import { Lazyload } from "vant";
 import { Grid, GridItem } from "vant";
 import { Col, Row } from "vant";
 import { mapActions, mapGetters } from "vuex";
+import {NO_IMG_URL} from '@/store/const.js'
 
 Vue.use(Col);
 Vue.use(Row);
@@ -42,22 +43,29 @@ Vue.use(Lazyload, {
 
 export default {
   name: "HomeLazyLoad",
+  props: ["cate_or_like", "cate_id"],
   data() {
-    return {};
+    return {
+      noImageUrl: NO_IMG_URL,
+    };
   },
   computed: {
     ...mapGetters({
       firstPageStuffList: "getFirstPageStuffList"
     })
   },
-  methods: {
+/*  methods: {
     ...mapActions({
-      fetchFirstPageStuffList: "fetchFirstPageStuffList"
+      fetchFirstPageStuffList: "fetchFirstPageStuffList",
+      fetchCateStuffList: "fetchCateStuffList"
     })
   },
   mounted() {
+    if (this.props.cate_or_like === '0') {
+      this.fetchCateStuffList({"cate_id": });
+    }
     this.fetchFirstPageStuffList();
-  }
+  }*/
 };
 </script>
 
@@ -69,7 +77,7 @@ if(!res || res && !res.data || res && res.data && !Array.isArray(res.data) || re
   padding: 14px 28px;
 }
 .list-split-line {
-  margin: 0px 0pxpx 14px;
+  margin: 0px 0px 0px 14px;
   height: 1px;
   background-color: rgba(0, 0, 0, 0.25);
 }

@@ -210,6 +210,44 @@ export const fetchFirstPageStuffList = (context) => {
     }
 };
 
+export const fetchCateStuffList = (context, payload) => {
+  console.log('fetchCateStuffList');
+  const {cate_id} = payload;
+  try {
+    axios.get(`${HTTP_URL}/pro/proByCate/${cate_id}`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setFirstPageStuffList', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      })
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
+};
+
+export const fetchLikeStuffList = (context, payload) => {
+  console.log('fetchLikeStuffList');
+  const {name} = payload;
+  try {
+    axios.get(`${HTTP_URL}/pro/likeName`,{
+      params: { 'name': name }
+    })
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setFirstPageStuffList', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      })
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
+};
+
 export const fetchCategoryList = (context) => {
     console.log('fetchCategoryList');
     const mockData = [
