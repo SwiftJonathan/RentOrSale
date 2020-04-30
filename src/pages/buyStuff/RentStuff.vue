@@ -2,14 +2,14 @@
   <div class="buy_stuff">
     <StuffTop msg="租赁宝贝" />
     <StuffItem/>
-    <ProviderAddress />
-    <div class="stuff_carry">
+    <ProviderAddress buy-or-rent="1" />
+    <!--<div class="stuff_carry">
       <van-row>
         <van-col span="5">
           <span>押金</span>
         </van-col>
         <van-col span="4" align="center" offset="15" class="cast_text">
-          200.00
+          {{stuffDetailMessage.deposit}}
         </van-col>
       </van-row>
     </div>
@@ -19,21 +19,22 @@
           <span>租赁天数</span>
         </van-col>
         <van-col span="8" align="center" offset="11" class="cast_text">
-          <van-stepper v-model="value" />
+          <van-stepper v-model="days" />
         </van-col>
       </van-row>
-    </div>
-    <div class="pay_bar">
+    </div>-->
+    <!--<div class="pay_bar">
       <van-submit-bar
         :price="3020"
         button-text="提交订单"
         @submit="onSubmit"
       />
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
+  import { mapActions, mapGetters } from "vuex";
   import StuffItem from './component/StuffItem'
   import StuffTop from '../../components/TopReturnBar'
   import StuffAddressBar from './component/StuffAddressBar'
@@ -51,6 +52,21 @@
     components: {
       StuffItem, StuffTop, StuffAddressBar, ProviderAddress
     },
+    data() {
+      return {
+        days: ''
+      }
+    },
+    computed: {
+      ...mapGetters({
+        stuffDetailMessage: "getStuffDetailMessage",
+      }),
+    },
+    methods: {
+      onSubmit(){
+
+      }
+    }
   }
 </script>
 

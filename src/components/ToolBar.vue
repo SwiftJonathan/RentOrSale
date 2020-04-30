@@ -1,5 +1,5 @@
 <template>
-  <div id="toolbar-wrapper">
+  <div id="toolbar-wrapper" v-if="showBarPage.indexOf(this.$route.path) > -1">
     <div id="toolbar">
       <div
         id="toolbar-item"
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       currectPage: "firstPage",
+      showBarPage: ["/first-page", "/publish", "/stuff-list", "/personal"],
       menuInfo: [
         {
           key: "firstPage",
@@ -47,7 +48,8 @@ export default {
         {
           key: "like",
           name: "Like",
-          icon: "like-o"
+          icon: "like-o",
+          router: "/stuff-list"
         },
         {
           key: "personal",
@@ -65,6 +67,9 @@ export default {
         path: item.router
       });
     }
+  },
+  mounted() {
+    console.log("stuff-message this.$route.path", this.$route.path);
   }
 };
 </script>
@@ -76,7 +81,7 @@ export default {
   position: absolute;
   bottom: 0px;
   border-radius: 20px 20px 0px 0px;
-  box-shadow: 0px 5px 24px 0px rgba(0, 0, 0, 0.2s);
+  box-shadow: 0px 5px 24px 0px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 #toolbar {

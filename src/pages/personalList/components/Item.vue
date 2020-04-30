@@ -3,7 +3,6 @@
       <div>
         <van-card
           v-for="(item,index) in (rent_or_sell === '0' ? saleStuffList: rentStuffList)"
-          num="2"
           :price="item.price"
           :desc="item.detail"
           :title="item.name + item.id"

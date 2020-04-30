@@ -11,6 +11,7 @@
       v-lazy:background-image="stuff.img ? stuff.img : ((stuff.proimgs == null || stuff.proimgs.length === 0) ? noImageUrl : stuff.proimgs[0].imgUrl)"
       :key="index"
       class="stuff-item"
+      @click="handleListItemClick(index)"
     >
       <div class="title">{{stuff.name}}</div>
       <div class="score">
@@ -54,6 +55,20 @@ export default {
       firstPageStuffList: "getFirstPageStuffList"
     })
   },
+  methods: {
+    ...mapActions({
+      fetchStuffDetailMessage: "fetchStuffDetailMessage"
+    }),
+    handleListItemClick(index){
+      console.log("handleListItemClick val", this.firstPageStuffList[index]);
+      this.fetchStuffDetailMessage({stuffMessage: this.firstPageStuffList[index]});
+      this.$router.push({
+        name: "StuffMessage",
+        params: {
+        }
+      })
+    }
+  }
 /*  methods: {
     ...mapActions({
       fetchFirstPageStuffList: "fetchFirstPageStuffList",
@@ -129,10 +144,10 @@ img,
 div[lazy] {
   box-sizing: border-box;
   width: 100%;
-  height: 25vh;
+  height: 35vh;
   background-color: white;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
   border-radius: 12px;
   box-shadow: 0 8px 12px #ebedf0;
 }

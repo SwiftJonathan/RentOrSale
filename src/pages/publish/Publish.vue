@@ -5,35 +5,39 @@
     </div>
 
     <div class="publish-type">
-      <div class="title">I Wana Sale !</div>
+      <div class="title" @click="handlerRBClick('0')">I Wana Sale !</div>
       <div class="description">Here some desctiption to sale.</div>
     </div>
 
     <div class="publish-type-sub">
-      <div class="title">I Want Sale !</div>
+      <div class="title" @click="handlerRBClick('1')">I Want Sale !</div>
       <div class="description">Here some desctiption to sale.</div>
     </div>
 
     <van-form id="formCon" @submit="onSubmit"  enctype="multipart/form-data">
       <div class="title">
-        <van-field v-model="name" label="发布标题" placeholder="请输入发布标题" name="name" />
+        <van-field v-model="name" label="发布标题" placeholder="请输入发布标题" maxlength="20" name="name" required
+                   :rules="[{ required: true, message: '请填写标题' }]"/>
       </div>
 
       <div class="description">
         <van-field
           v-model="detail"
           rows="3"
-          autosize
+          :autosize=areaHeight
           label="商品描述"
           type="textarea"
-          maxlength="100"
+          maxlength="255"
           placeholder="请输入商品描述"
           show-word-limit
           name="detail"
+          required
+          :rules="[{ required: true, message: '请填写描述' }]"
         />
       </div>
       <div class="price">
-        <van-field v-model="price" type="number" label="价格" placeholder="请输入发布价格" name="price" />
+        <van-field v-model="price" type="number" label="价格" placeholder="请输入发布价格" name="price" required
+                   :rules="[{ required: true, message: '请填写价格' }]"/>
       </div>
       <div class="freight">
         <van-field v-model="freight" type="digit" label="运费" placeholder="请输入发布运费" name="freight" />
@@ -41,6 +45,7 @@
       <div class="deposit" v-show="SaleOrRent ==='1'">
         <van-field v-model="deposit" type="digit" label="押金" placeholder="请输入押金" name="deposit" />
       </div>
+
 
       <div class="uploader">
         <van-uploader v-model="fileList" multiple name="fileList" />
@@ -64,7 +69,7 @@
 // import axios from 'axios';
 import {HTTP_URL} from '@/store/const.js'
 import Vue from "vue";
-import { Field, Uploader, CheckboxGroup, Checkbox } from "vant";
+import { Field, Uploader, CheckboxGroup, Checkbox, Toast } from "vant";
 import { Form } from "vant";
 import axios from "axios";
 
@@ -90,10 +95,14 @@ export default {
         // { url: "https://cloud-image", isImage: true }
       ],
       //转卖或租赁：0转卖， 1租赁
-      SaleOrRent: "1",
+      SaleOrRent: "0",
       //押金
       deposit: "",
       rentPrice: "",
+      areaHeight: {
+        maxHeight: 150,
+        minHeight: 50
+      }
     };
   },
   methods: {
@@ -114,8 +123,10 @@ export default {
         console.log(key, data.getAll(key));
       }
       let req_url = `${HTTP_URL}/pro/addSell`;
-      if (this.SaleOrRent === '1')
+      if (this.SaleOrRent === '1'){
+        data.append("rentPrice", this.price);
         req_url = `${HTTP_URL}/pro/addRent`;
+      }
       axios.post(req_url, data, {
           headers: {
             "Content-Type": "multipart/form-data"
@@ -125,12 +136,29 @@ export default {
           res => {
             console.log("sucess");
             console.log(res);
+            this.handlerClearForm();
+            Toast("发布成功");
           },
           rej => {
             console.log("faild");
             console.log(rej);
           }
         );
+    },
+    handlerRBClick(val){
+      this.SaleOrRent = val;
+      console.log("this.saleorrent", this.SaleOrRent);
+    },
+    handlerClearForm(){
+      console.log("clear");
+      this.name = "";
+      this.price = "";
+      this.freight = "";
+      this.detail = "";
+      this.checkboxGroup = [];
+      this.fileList = [];
+      this.deposit = "";
+      this.rentPrice = "";
     }
   }
 };

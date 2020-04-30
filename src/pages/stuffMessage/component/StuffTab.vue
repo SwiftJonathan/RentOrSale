@@ -1,19 +1,46 @@
 <template>
     <div class="stuff_tab">
-      <button class="btn_buy">购买{{buy_price}}</button>
-      <button class="btn_rent">租赁{{rent_price}}</button>
+      <button class="btn_buy" v-if="stuffDetailMessage.rentOrSail !== 1" @click="handleBuyClick">购买{{buy_price}}</button>
+      <button class="btn_rent" v-show="stuffDetailMessage.rentOrSail !== 0" @click="handleRentClick">租赁{{rent_price}}</button>
     </div>
 </template>
 
 <script>
-    export default {
+  import { mapActions, mapGetters } from "vuex";
+
+  export default {
       name: "StuffTab",
       data() {
         return {
           buy_price: '230',
-          rent_price: '20'
+          rent_price: '20',
+          rent: '',
+          buy: ''
         };
+      },
+    computed: {
+      ...mapGetters({
+        stuffDetailMessage: "getStuffDetailMessage",
+      }),
+    },
+    methods: {
+      handleBuyClick() {
+        console.log("handleBuyClick");
+        this.$router.push({
+          name: "BuyStuff",
+          params: {
+          }
+        })
+      },
+      handleRentClick(){
+        console.log("handleRentClick");
+        this.$router.push({
+          name: "RentStuff",
+          params: {
+          }
+        })
       }
+    }
     }
 </script>
 

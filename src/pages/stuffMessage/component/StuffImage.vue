@@ -1,12 +1,13 @@
 <template>
   <div class="stuff_image_con">
-    <img v-for="(img,index) in imageList" :key="index" v-lazy="img" >
+    <img v-for="(img,index) in stuffDetailMessage.proimgs" :key="index" v-lazy="img.imgUrl" >
   </div>
 </template>
 
 <script>
   import Vue from 'vue';
   import { Lazyload } from 'vant';
+  import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Lazyload);
 
@@ -23,7 +24,12 @@
           'https://img.yzcdn.cn/vant/apple-2.jpg'
         ]
       };
-    }
+    },
+    computed: {
+      ...mapGetters({
+        stuffDetailMessage: "getStuffDetailMessage"
+      })
+    },
   }
 </script>
 
@@ -32,7 +38,7 @@
     width: 90%;
     padding: 4% 5%;
     background-color: white;
-    border-radius: 40px 40px 0 0;
+    border-radius: 25px 25px 0 0;
   }
   .stuff_con img{
     box-sizing: border-box;

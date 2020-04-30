@@ -3,7 +3,7 @@
     <div class="stuff_con">
       <div class="con_top">
         <van-row>
-          <van-col span="20" class="con_title">{{title}}</van-col>
+          <van-col span="20" class="con_title">{{stuffDetailMessage.name}}</van-col>
           <van-col span="2">
             <van-icon name="star-o" size="1.2rem" color="#448c47" />
 
@@ -13,7 +13,7 @@
           </van-col>
         </van-row>
         <van-row class="con_detail">
-          <van-col span="24" class="con_title">{{detail}}</van-col>
+          <van-col span="24" class="con_title">{{stuffDetailMessage.detail}}</van-col>
         </van-row>
       </div>
       <StuffImage/>
@@ -32,6 +32,7 @@
   import Vue from 'vue';
   import { Col, Row } from 'vant';
   import { Icon } from 'vant';
+  import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Icon);
   Vue.use(Col);
@@ -46,7 +47,12 @@
         title: "TITLE",
         detail: "那如何使用懒加载呢？自从点语法出现以后，访问一个对象基本就类似于self.clickBtn或者是[self clickBtn]，这都是调用的clickBtn的getter方法，因此就可以在getter方法中实现懒加载。"
       }
-    }
+    },
+    computed: {
+      ...mapGetters({
+        stuffDetailMessage: "getStuffDetailMessage"
+      })
+    },
   }
 </script>
 

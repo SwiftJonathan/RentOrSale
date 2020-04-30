@@ -1,7 +1,7 @@
 <template>
   <div class="login_bg">
     <div class="login_con">
-      <div class="to_reg">TO REGISTER</div>
+      <div class="to_reg" @click="handlerClickReg">TO REGISTER</div>
 <!--      <div class="login_title">Thisis Component Login</div>-->
       <div class="login_title">大吉大利</div>
       <Form />
@@ -19,6 +19,15 @@ export default {
   components: {
     Form,
     // Form2
+  },
+  methods: {
+    handlerClickReg(){
+      this.$router.push({
+        name: "Register",
+        params: {
+        }
+      })
+    }
   }
 };
 </script>

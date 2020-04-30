@@ -3,7 +3,7 @@
     <StuffTop msg="购买宝贝" />
     <StuffItem/>
 <!--    选择物品交易方式-->
-    <ProviderAddress />
+    <ProviderAddress buy-or-rent="0" />
   </div>
 </template>
 
@@ -16,6 +16,7 @@
   import { Panel } from 'vant';
   import { SubmitBar } from 'vant';
   import { RadioGroup, Radio } from 'vant';
+  import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Radio);
   Vue.use(RadioGroup);
@@ -44,6 +45,11 @@
           proId: '',
           buyerUserId: '',
         }
+      },
+      computed: {
+        ...mapGetters({
+          stuffDetailMessage: "getStuffDetailMessage",
+        }),
       },
     }
 </script>

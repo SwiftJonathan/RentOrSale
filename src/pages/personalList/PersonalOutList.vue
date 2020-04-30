@@ -1,8 +1,8 @@
 <template>
   <div class="person_list">
     <TopReturnBar :msg="this.$route.params.name" />
-    <div>RentOrSell: {{RentOrSell}}</div>
-    <div>publishOrSail: {{publishOrSail}}</div>
+<!--    <div>RentOrSell: {{RentOrSell}}</div>-->
+<!--    <div>publishOrSail: {{publishOrSail}}</div>-->
     <van-tabs v-model="RentOrSell">
       <van-tab title="转卖">
         <Item rent_or_sell="0" />
@@ -41,6 +41,9 @@
       ...mapActions({
         fetchSaleStuffList: "fetchSaleStuffList",
         fetchRentStuffList: "fetchRentStuffList"
+      }),
+      ...mapGetters({
+        user: "getUser"
       })
     },
     mounted() {
