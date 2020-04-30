@@ -1,7 +1,8 @@
 const state = {
     user: {
-        name: 'ChenJianguo',
-        location: 'BeiJing China'
+      name: 'ChenJianguo',
+      location: '南昌大学',
+      id: "7"
     },
     todoList: ['1', '2', '3'],
     stuffList: [],
@@ -9,7 +10,8 @@ const state = {
   firstPageStuffList: [],
   categoryList: [],
   saleStuffList: [],
-  rentStuffList: []
+  rentStuffList: [],
+  stuffDetailMessage: {}
 };
 
 export default state;

@@ -248,6 +248,25 @@ export const fetchLikeStuffList = (context, payload) => {
   }
 };
 
+export const fetchStuffDetailMessage = (context, payload) => {
+  console.log('fetchStuffDetailMessage');
+  const {stuffMessage} = payload;
+  try {
+    /*axios.get(`${HTTP_URL}/pro/onePro/{id}`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setStuffDetailMessage', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      })*/
+    context.commit('setStuffDetailMessage',stuffMessage);
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
+};
+
 export const fetchCategoryList = (context) => {
     console.log('fetchCategoryList');
     const mockData = [

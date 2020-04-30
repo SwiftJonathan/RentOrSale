@@ -18,6 +18,10 @@ const mutation = {
   },
   setRentStuffList(state, rentStuffList){
       state.rentStuffList = rentStuffList;
+  },
+  setStuffDetailMessage(state, stuffDetailMessage){
+      console.log("setStuffDetailMessage", stuffDetailMessage);
+    state.stuffDetailMessage = stuffDetailMessage;
   }
 };
 export default mutation;
