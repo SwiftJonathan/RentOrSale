@@ -64,9 +64,9 @@ export default {
     someList: function () {
       // let size = this.firstPageStuffList.size();
       console.log("swipper firstPageStuffList", this.firstPageStuffList);
-      let a = Math.floor(Math.random()*10);
-      let b = Math.floor(Math.random()*10);
-      let c = Math.floor(Math.random()*10);
+      let a = Math.floor(Math.random()*this.firstPageStuffList.length);
+      let b = Math.floor(Math.random()*this.firstPageStuffList.length);
+      let c = Math.floor(Math.random()*this.firstPageStuffList.length);
       this.proLists.append(this.firstPageStuffList[a]);
       this.proLists.append(this.firstPageStuffList[b]);
       this.proLists.append(this.firstPageStuffList[c]);

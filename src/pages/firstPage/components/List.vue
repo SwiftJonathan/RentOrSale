@@ -66,7 +66,7 @@ export default {
   padding: 28px;
 }
 .list-split-line {
-  margin: 0px 0pxpx 14px;
+  margin: 0px 0px 0px 14px;
   height: 1px;
   background-color: rgba(0, 0, 0, 0.25);
 }

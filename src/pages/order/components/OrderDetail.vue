@@ -1,15 +1,16 @@
 <template>
 <div class="order_detail">
   <van-card
-    num="2"
-    price="2.00"
+    num="1"
+    :price="orderDetailMessage.price"
     desc="描述信息"
-    title="商品标题"
-    thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+    :title="orderDetailMessage.name"
+    :thumb="orderDetailMessage.proimgs[0].imgUrl"
   />
+
   <van-cell-group>
-    <van-cell title="商品价格" value="30.00" />
-    <van-cell title="运费" value="10.00" label="描述信息" />
+    <van-cell title="商品价格" :value="orderDetailMessage.price" />
+    <van-cell title="运费" :value="orderDetailMessage.freight" label="描述信息" />
     <van-cell title="实付总价" value="30.00" />
   </van-cell-group>
   <van-cell-group>
@@ -28,6 +29,7 @@
   import Vue from 'vue';
   import { Card } from 'vant';
   import { Cell, CellGroup } from 'vant';
+  import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Cell);
   Vue.use(CellGroup);
@@ -39,7 +41,12 @@
             name: 'chen',
             phone: '13310100101',
           }
-      }
+      },
+      computed: {
+        ...mapGetters({
+          orderDetailMessage: "getOrderDetailMessage"
+        })
+      },
     }
 </script>
 

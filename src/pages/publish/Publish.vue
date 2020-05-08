@@ -69,6 +69,12 @@
           <van-field v-model="deposit" type="digit" label="押金" placeholder="请输入押金" name="deposit" />
         </div>
 
+        <div class="cate form-item">
+          <van-dropdown-menu  direction="up">
+            <van-dropdown-item v-model="cateId"  :options="transCate2Option()" />
+          </van-dropdown-menu>
+        </div>
+
         <div class="uploader form-item">
           <van-uploader v-model="fileList" multiple name="fileList" />
         </div>
@@ -96,7 +102,11 @@ import Vue from "vue";
 import { Field, Uploader, CheckboxGroup, Checkbox, Toast } from "vant";
 import { Form } from "vant";
 import axios from "axios";
+import { DropdownMenu, DropdownItem } from 'vant';
+import { mapActions, mapGetters } from "vuex";
 
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 Vue.use(Form);
 Vue.use(Field);
 Vue.use(Uploader);
@@ -125,7 +135,13 @@ export default {
       areaHeight: {
         maxHeight: 150,
         minHeight: 50
-      }
+      },
+      cateId: 0,
+      cates: [
+        { text: '商品类别', value: 0 },
+        { text: '新款商品', value: 1 },
+        { text: '活动商品', value: 2 },
+      ],
     };
   },
   methods: {
@@ -181,7 +197,30 @@ export default {
       this.fileList = [];
       this.deposit = "";
       this.rentPrice = "";
-    }
+    },
+    transCate2Option(){
+      console.log("transCate2Option categoryList", this.categoryList);
+      let cate = [];
+      this.categoryList.forEach(val => {
+        cate.push({
+          text: val.name,
+          value: val.id
+        });
+      });
+      console.log("transCate2Option cate", cate);
+      return cate;
+    },
+    ...mapActions({
+      fetchCategoryList: "fetchCategoryList"
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      categoryList: "getCategoryList"
+    })
+  },
+  mounted() {
+    this.fetchCategoryList();
   }
 };
 </script>
@@ -239,14 +278,20 @@ export default {
   visibility: hidden;
 }
 .button{
-  background-color: orangered;
+  background-color: #dc8f72;
   height: 60px;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba(240, 240, 240, 1);
+  color: rgb(245, 244, 244);
   font-weight: 600;
   font-size: 20px;
+}
+.button button{
+  width: 100%;
+  height: 100%;
+  background: border-box;
+  border: none;
 }
 </style>

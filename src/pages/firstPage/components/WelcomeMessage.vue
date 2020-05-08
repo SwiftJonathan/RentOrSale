@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-message">
     <div class="title-and-search">
-      <span>Hello! {{user.name}}</span>
+      <span>Hello! {{user.username}}-{{user.id}}</span>
       <van-icon name="search" size="24" @click="show = true" />
     </div>
     <div class="location">

@@ -40,17 +40,21 @@
     methods: {
       ...mapActions({
         fetchSaleStuffList: "fetchSaleStuffList",
-        fetchRentStuffList: "fetchRentStuffList"
+        fetchRentStuffList: "fetchRentStuffList",
+
       }),
+    },
+    computed: {
       ...mapGetters({
         user: "getUser"
       })
     },
     mounted() {
       console.log("params",this.$route.params);
+      console.log("user", this.user);
       this.publishOrSail = this.$route.params.publishOrSail;
-      this.fetchSaleStuffList({type: this.$route.params.publishOrSail, user_id: '7'});
-      this.fetchRentStuffList({type: this.$route.params.publishOrSail, user_id: '7'});
+      this.fetchSaleStuffList({type: this.$route.params.publishOrSail, user_id: this.user.id});
+      this.fetchRentStuffList({type: this.$route.params.publishOrSail, user_id: this.user.id});
       console.log("PersonalItemList salelist is ", this.saleStuffList);
       console.log("PersonalItemList rentlist is ", this.rentStuffList);
     }

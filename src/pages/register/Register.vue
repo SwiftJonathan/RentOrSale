@@ -11,8 +11,7 @@
 
 <script>
   // import Form from './component/Form';
-
-  import Form from './component/Form'
+  import Form from './component/Form';
   export default {
     name: "Register",
     components: { Form },
@@ -40,9 +39,10 @@
   .login_con {
     width: 86%;
     margin-left: 7%;
-    height: 70vh;
+    /*height: 70vh;*/
     margin-top: 15vh;
     background-color: rgba(255,255,255,0.60);
+    display: inline-table;
   }
   .reg_title{
     width: 100%;

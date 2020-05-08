@@ -13,6 +13,12 @@ export const fetchList = (context) => {
     })
 };
 
+export const fetchUser = (context, payload) => {
+  const {user} = payload;
+  console.log('fetchUser, user is ', user);
+  context.commit("setUser", user);
+};
+
 export const fetchStuffList = (context) => {
     new Promise((rel, rej) => {
         rel();
@@ -210,6 +216,25 @@ export const fetchFirstPageStuffList = (context) => {
     }
 };
 
+export const fetchPageStuffList = (context, payload) => {
+  const {currPage} = payload;
+  console.log('fetchFirstPageStuffList, currPage is ', currPage);
+  try {
+    axios.get(`${HTTP_URL}/pro/proPage/${currPage}`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setPageStuffData', res.data);
+          context.commit('setFirstPageStuffList', res.data.list);
+        }else {
+          console.log("pro use mock data");
+        }
+      })
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
+};
+
 export const fetchCateStuffList = (context, payload) => {
   console.log('fetchCateStuffList');
   const {cate_id} = payload;
@@ -309,6 +334,7 @@ export const fetchCategoryList = (context) => {
           if (res.status === 200 && res.data) {
             context.commit('setCategoryList', res.data);
           }else{
+            console.log("cate use mock data4");
             context.commit('setCategoryList', mockData);
           }
         })
@@ -340,6 +366,26 @@ export const fetchSaleStuffList = (context, payload) => {
   }
   catch (e) {
     console.log("fetchSaleStuffList is error", e);
+  }
+};
+
+export const fetchOrderDetailMessage = (context, payload) => {
+  console.log('fetchOrderDetailMessage');
+  const {orderMessage} = payload;
+  console.log(orderMessage)
+  try {
+    /*axios.get(`${HTTP_URL}/pro/onePro/{id}`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setStuffDetailMessage', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      })*/
+    context.commit('setOrderDetailMessage',orderMessage);
+  }
+  catch (e) {
+    console.log("order use mock data");
   }
 };
 

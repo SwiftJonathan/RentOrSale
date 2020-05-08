@@ -28,12 +28,18 @@
         ...mapActions({
           fetchSaleStuffList: "fetchSaleStuffList",
           fetchRentStuffList: "fetchRentStuffList"
+        }),
+      },
+      computed: {
+        ...mapGetters({
+          user: "getUser"
         })
       },
       mounted() {
-        this.fetchSaleStuffList({type:2, user_id:5});
-        this.fetchRentStuffList({type:2, user_id:5});
-
+        console.log("userIn", this.user);
+        console.log("useridIn", this.user.id);
+        this.fetchSaleStuffList({type:2, user_id: this.user.id});
+        this.fetchRentStuffList({type:2, user_id: this.user.id});
       }
     }
 </script>

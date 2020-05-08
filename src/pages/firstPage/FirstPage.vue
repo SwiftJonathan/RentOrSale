@@ -29,7 +29,7 @@ export default {
 
 <style>
 .first-page {
-  background-color: rgba(243, 244, 249, 1);
+  background-color: rgba(240, 240, 240, 1);
   height: 100vh;
 }
 </style>

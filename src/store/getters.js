@@ -2,7 +2,7 @@ export const todoList = state => state.todoList;
 
 export const getUser = state => {
     return state.user;
-}
+};
 
 export const getStuffList = state => {
     return state.stuffList;
@@ -11,6 +11,10 @@ export const getStuffList = state => {
 export const getFirstPageStuffList = state => {
     console.log(state.firstPageStuffList);
     return state.firstPageStuffList;
+};
+export const getPageStuffData = state => {
+  console.log(state.pageStuffData);
+  return state.pageStuffData;
 };
 export const getSomeStuffList = state => {
   console.log("abc", state.firstPageStuffList);
@@ -39,4 +43,7 @@ export const getRentStuffList = state => {
 }
 export const getStuffDetailMessage = state => {
   return state.stuffDetailMessage;
+}
+export const getOrderDetailMessage = state => {
+  return state.orderDetailMessage;
 }

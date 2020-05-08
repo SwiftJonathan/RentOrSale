@@ -31,22 +31,43 @@
 <script>
   import Vue from 'vue';
   import { Icon } from 'vant';
+  import { mapActions, mapGetters } from "vuex";
 
   Vue.use(Icon);
     export default {
       name: "Types",
+      computed: {
+        ...mapGetters({
+          user: "getUser"
+        }),
+      },
       methods: {
+        beforeHandler(){
+          console.log("beforeHandler user", this.user);
+          console.log("beforeHandler user.id", this.user.id);
+          console.log("store", this.$store.state.user);
+          if (this.user.id === undefined){
+            this.$router.push({
+              name: "Login",
+            });
+            return false;
+          }
+          return true;
+        },
         handleClickPulish() {
-          this.$router.push({
-            name: "PersonalOutList",
-            params: {
-              name: "我发布的",
-              //publishOrSail 发布或者卖出： 0发布，1卖出
-              publishOrSail: "0"
-            }
-          })
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalOutList",
+              params: {
+                name: "我发布的",
+                //publishOrSail 发布或者卖出： 0发布，1卖出
+                publishOrSail: "0"
+              }
+            })
+          }
         },
         handleClickSail() {
+          this.beforeHandler();
           this.$router.push({
             name: "PersonalOutList",
             params: {

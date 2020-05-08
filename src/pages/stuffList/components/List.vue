@@ -4,7 +4,7 @@
     <!-- <div class="list-split-line"></div> -->
     <div class="list-header">
       <div class="title">As You Like</div>
-      <div class="button">Refresh</div>
+      <div class="button" @click="refreshClick()">Refresh</div>
     </div>
     <div
       v-for="(stuff,index) in firstPageStuffList"
@@ -52,12 +52,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      firstPageStuffList: "getFirstPageStuffList"
+      firstPageStuffList: "getFirstPageStuffList",
+      pageStuffData: "getPageStuffData"
     })
   },
   methods: {
     ...mapActions({
-      fetchStuffDetailMessage: "fetchStuffDetailMessage"
+      fetchStuffDetailMessage: "fetchStuffDetailMessage",
+      fetchPageStuffList: "fetchPageStuffList"
     }),
     handleListItemClick(index){
       console.log("handleListItemClick val", this.firstPageStuffList[index]);
@@ -67,6 +69,11 @@ export default {
         params: {
         }
       })
+    },
+    refreshClick(){
+      let curr = ( this.pageStuffData && this.pageStuffData.pageNum ) ? this.pageStuffData.pageNum+1 : 0;
+      if (curr > this.pageStuffData.pages) curr = 0;
+      this.fetchPageStuffList({currPage: curr});
     }
   }
 /*  methods: {

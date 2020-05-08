@@ -1,6 +1,9 @@
 import { Stats } from "fs";
 
 const mutation = {
+  setUser(state, user) {
+    state.user = user;
+  },
     setTodoList(state, todoList) {
         state.todoList = todoList;
     },
@@ -10,8 +13,13 @@ const mutation = {
     setFirstPageStuffList(state, firstPageStuffList) {
         state.firstPageStuffList = firstPageStuffList;
     },
+  setPageStuffData(state, pageStuffData) {
+    console.log("setPageStuffData", pageStuffData);
+    state.pageStuffData = pageStuffData;
+  },
   setCategoryList(state, categoryList){
-      state.categoryList = categoryList;
+    console.log("setCategoryList", categoryList);
+    state.categoryList = categoryList;
   },
   setSaleStuffList(state, saleStuffList){
       state.saleStuffList = saleStuffList;
@@ -22,6 +30,10 @@ const mutation = {
   setStuffDetailMessage(state, stuffDetailMessage){
       console.log("setStuffDetailMessage", stuffDetailMessage);
     state.stuffDetailMessage = stuffDetailMessage;
+  },
+  setOrderDetailMessage(state, orderDetailMessage){
+    console.log("setStuffDetailMessage", orderDetailMessage);
+    state.orderDetailMessage = orderDetailMessage;
   }
 };
 export default mutation;

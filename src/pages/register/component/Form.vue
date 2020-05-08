@@ -2,41 +2,63 @@
   <div>
     <van-form @submit="onSubmit" class="reg_form">
       <van-field
-        v-model="username"
-        name="用户名"
+        v-model="phoneNumber"
+        name="phoneNumber"
         placeholder="手机号码"
-        type="number"
+        type="tel"
         clearable="true"
         maxlength="11"
-        validate-trigger="onChange"
-        :rules="[{ required: true, message: '请填写手机号'},
-      {trigger:'onChange'}]"
-        class="field_input"
+        :rules="[{ required: true, message: '请填写手机号'}]"
+      />
+      <van-field
+        v-model="username"
+        name="username"
+        placeholder="用户名"
+        :rules="[{ required: true, message: '请填写用户名' }]"
       />
       <van-field
         v-model="password"
         type="password"
-        name="密码"
+        name="password"
         placeholder="密码"
         :rules="[{ required: true, message: '请填写密码' }]"
-        class="field_input"
       />
       <van-field
+        v-model="password2"
+        type="password"
+        name="password2"
+        placeholder="再次确认密码"
+        :rules="[{ required: true, message: '请填写密码' },
+        {validator: handlerSamePwd, message: '两次密码输入需一致'}]"
+      />
+
+      <!--<van-field
         v-model="email"
         type="email"
         name="邮箱"
         placeholder="邮箱"
         :rules="[{ required: true, message: '请填写邮箱' }]"
         class="field_input"
-      />
-      <van-field name="radio" class="field_radio">
-        <template #input>
-          <van-radio-group v-model="sex" direction="horizontal" align="center">
-            <van-radio name="1" icon-size="20px">男</van-radio>
-            <van-radio name="2" icon-size="20px">女</van-radio>
-          </van-radio-group>
-        </template>
-      </van-field>
+      />-->
+      <van-collapse v-model="activeName" accordion>
+        <van-collapse-item title="更多信息" name="1">
+          <van-field name="radio" class="field_radio">
+            <template #input>
+              <van-radio-group v-model="sex" direction="horizontal" align="center">
+                <van-radio name="1" icon-size="20px">男</van-radio>
+                <van-radio name="2" icon-size="20px">女</van-radio>
+              </van-radio-group>
+            </template>
+          </van-field>
+          <van-field
+            v-model="email"
+            type="email"
+            name="email"
+            placeholder="邮箱"
+          />
+        </van-collapse-item>
+      </van-collapse>
+
       <div style="margin: 16px;">
         <van-button round block type="info" native-type="submit" class="btn">
           提交
@@ -52,7 +74,14 @@
   import { Form } from 'vant';
   import { Field } from 'vant';
   import { RadioGroup, Radio } from 'vant';
+  import { Collapse, CollapseItem } from 'vant';
+  import { HTTP_URL } from "@/store/const.js";
+  import { Toast } from "vant";
+  import axios from "axios";
+  import { mapActions, mapGetters } from "vuex";
 
+  Vue.use(Collapse);
+  Vue.use(CollapseItem);
   Vue.use(Radio);
   Vue.use(RadioGroup);
   Vue.use(Field);
@@ -83,16 +112,44 @@
       },
       data() {
         return {
+          phoneNumber: '',
           username: '',
           password: '',
+          password2: '',
           sex: '1',
-          email: ''
+          email: '',
+          activeName: '0',
         };
       },
       methods: {
         onSubmit(values) {
           console.log('submit', values);
+          axios.post(`${HTTP_URL}/user/register`, values)
+            .then(
+              res => {
+                console.log("sucess return", res.data.returnMsg);
+                console.log(res);
+                // this.handlerClearForm();
+                Toast(res.data.returnMsg);
+                if (res.data.user != null){
+                  this.fetchUser({user: res.data.user});
+                  this.$router.push({
+                    name: "FirstPage"
+                  })
+                }
+              },
+              rej => {
+                console.log("faild");
+                console.log(rej);
+              }
+            );
         },
+        handlerSamePwd(){
+          return this.password2 === this.password;
+        },
+        ...mapActions({
+          fetchUser: "fetchUser"
+        }),
       },
     };
 </script>

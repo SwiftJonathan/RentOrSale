@@ -8,6 +8,7 @@
           :title="item.name + item.id"
           :thumb="item.img ? item.img : ((item.proimgs == null || item.proimgs.length === 0) ? noImageUrl : item.proimgs[0].imgUrl)"
         :key="index"
+          @click="handleOrderClick(index)"
     />
     </div>
     </div>
@@ -53,7 +54,23 @@
           saleStuffList: "getSaleStuffList",
           rentStuffList: "getRentStuffList"
         })
+      },
+    methods: {
+      ...mapActions({
+        fetchOrderDetailMessage: "fetchOrderDetailMessage"
+      }),
+      handleOrderClick(index){
+        console.log("handleOrderClick val", this.rent_or_sell === '0'? this.saleStuffList[index] : this.rentStuffList[index]);
+        console.log("rent_or_sell", this.rent_or_sell);
+        this.fetchOrderDetailMessage({orderMessage:  this.rent_or_sell === '0'? this.saleStuffList[index] : this.rentStuffList[index] });
+        this.$router.push({
+          name: "Order",
+          params: {
+            OrderOrRent: this.rent_or_sell
+          }
+        })
       }
+    }
     }
 </script>
 

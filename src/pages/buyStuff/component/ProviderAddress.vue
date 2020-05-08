@@ -112,6 +112,7 @@
       computed: {
         ...mapGetters({
           stuffDetailMessage: "getStuffDetailMessage",
+          user: "getUser",
         }),
       },
       methods: {
@@ -121,7 +122,7 @@
             phone: this.stuffDetailMessage.ownerPhone,
             address: this.stuffDetailMessage.ownerAddress,
             postmethod:this.postmethod,
-            buyerUserId: '5',
+            buyerUserId: this.user.id,
             providerUserId: this.stuffDetailMessage.providerUserId,
             proId: this.stuffDetailMessage.id,
             //运费

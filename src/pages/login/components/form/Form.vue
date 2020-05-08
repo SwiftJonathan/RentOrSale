@@ -1,28 +1,64 @@
 <template>
   <div class="login_form">
-    <form @submit.prevent="onSubmit">
-      <input v-model="phone" type="number" width="80%" placeholder="手机号" maxlength="11"required >
-      <input v-model="password" type="password" width="80%" placeholder="密码" required>
+    <van-form @submit="onSubmit" id="loginCon">
+      <input name="phone" v-model="formData.phoneNumber" type="number" width="80%" placeholder="手机号" maxlength="11" required />
+      <input name="password" v-model="formData.password" type="password" width="80%" placeholder="密码" required />
       <button class="btn" >登录</button>
-    </form>
+    </van-form>
   </div>
 </template>
 
 <script>
-export default {
+  import { Form } from "vant";
+  import { HTTP_URL } from "@/store/const.js";
+  import { Toast } from "vant";
+  import axios from "axios";
+  import { mapActions, mapGetters } from "vuex";
+
+  export default {
   name: "Form",
   data() {
     return {
-      phone: '',
-      password: ''
+      formData:{
+        phoneNumber: '',
+        password: ''
+      }
     };
   },
   methods: {
-    onSubmit(values) {
-      console.log('submit', values);
-      console.log('phone', this.phone);
-      console.log('password', this.password);
+    onSubmit() {
+      let data = new FormData();
+      for (let key in this.formData) {
+        // console.log("key", key);
+        // console.log("this.formData[key]", this.formData[key]);
+        data.append(key, this.formData[key]);
+      }
+      for (let key of data.keys()) {
+        console.log(key, data.getAll(key));
+      }
+      axios.post(`${HTTP_URL}/user/login`, data)
+        .then(
+          res => {
+            console.log("sucess return", res.data.returnMsg);
+            console.log(res);
+            // this.handlerClearForm();
+            Toast(res.data.returnMsg);
+            if (res.data.user != null){
+              this.fetchUser({user: res.data.user});
+              this.$router.push({
+                name: "FirstPage"
+              })
+            }
+          },
+          rej => {
+            console.log("faild");
+            console.log(rej);
+          }
+        );
     },
+    ...mapActions({
+      fetchUser: "fetchUser"
+    }),
   },
 };
 </script>

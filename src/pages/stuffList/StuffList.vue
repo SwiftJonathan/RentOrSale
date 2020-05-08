@@ -42,7 +42,13 @@ export default {
     ...mapActions({
       fetchFirstPageStuffList: "fetchFirstPageStuffList",
       fetchCateStuffList: "fetchCateStuffList",
-      fetchLikeStuffList: "fetchLikeStuffList"
+      fetchLikeStuffList: "fetchLikeStuffList",
+      fetchPageStuffList: "fetchPageStuffList"
+    })
+  },
+  computed: {
+    ...mapGetters({
+      pageStuffData: "getPageStuffData"
     })
   },
   mounted() {
@@ -52,7 +58,9 @@ export default {
     } else if (this.$route.params.cateOrLike === '1') {
       this.fetchLikeStuffList({name: this.$route.params.name})
     }else {
-      this.fetchFirstPageStuffList();
+      let curr = ( this.pageStuffData && this.pageStuffData.pageNum ) ? this.pageStuffData.pageNum+1 : 0;
+      if (curr > this.pageStuffData.pages) curr = 0;
+      this.fetchPageStuffList({currPage: curr});
     }
   }
 };
