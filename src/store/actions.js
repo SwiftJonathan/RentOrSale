@@ -200,7 +200,9 @@ export const fetchFirstPageStuffList = (context) => {
         }
     ];
     try {
-        axios.get(`${HTTP_URL}/pro/allPro`)
+        axios.get(`${HTTP_URL}/pro/allPro`,{
+          timeout : 2
+        })
             .then((res) => {
               if (res.status === 200 && res.data) {
                 context.commit('setFirstPageStuffList', res.data);
@@ -208,7 +210,9 @@ export const fetchFirstPageStuffList = (context) => {
                 console.log("pro use mock data");
                 context.commit('setFirstPageStuffList', mockData);
               }
-            })
+            });
+      const error = null;
+      error.getError();
     }
     catch (e) {
       console.log("pro use mock data");
