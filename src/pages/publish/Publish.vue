@@ -75,6 +75,16 @@
           </van-dropdown-menu>
         </div>
 
+        <van-collapse v-model="activeNames" accordion>
+          <van-collapse-item title="交易地址" name="1">
+            <div>
+              <van-field v-model="owner_name" label="姓名" placeholder="请输入姓名" name="owner_name" />
+              <van-field v-model="owner_phone" label="电话" placeholder="请输入手机号" name="owner_phone" />
+              <van-field v-model="owner_address" label="地址" placeholder="请输入地址" name="owner_address" />
+            </div>
+          </van-collapse-item>
+        </van-collapse>
+
         <div class="uploader form-item">
           <van-uploader v-model="fileList" multiple name="fileList" />
         </div>
@@ -96,7 +106,6 @@
 
 
 <script>
-// import axios from 'axios';
 import { HTTP_URL } from "@/store/const.js";
 import Vue from "vue";
 import { Field, Uploader, CheckboxGroup, Checkbox, Toast } from "vant";
@@ -104,7 +113,10 @@ import { Form } from "vant";
 import axios from "axios";
 import { DropdownMenu, DropdownItem } from 'vant';
 import { mapActions, mapGetters } from "vuex";
+import { Collapse, CollapseItem } from 'vant';
 
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 Vue.use(Form);
@@ -116,6 +128,7 @@ export default {
   name: "Publish",
   data() {
     return {
+      activeNames: '1',
       name: "",
       price: "",
       //运费
@@ -123,6 +136,9 @@ export default {
       detail: "",
       checkboxGroup: [],
       providerUserId: "7",
+      owner_name: '',
+      owner_phone: '',
+      owner_address: '',
       fileList: [
         // { url: "https://img.yzcdn.cn/vant/leaf.jpg" },
         // { url: "https://cloud-image", isImage: true }
@@ -227,9 +243,10 @@ export default {
 
 <style scope>
 .publish {
-  height: 100vh;
+  /*height: 100vh;*/
   overflow: hidden;
   background-color: rgba(240, 240, 240, 1);
+  padding-bottom: 10vh;
 }
 .publish > .publish-back {
   width: 30px;
