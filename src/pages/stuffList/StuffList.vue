@@ -68,7 +68,7 @@ export default {
 
 <style scope>
 .stuff-list {
-  background-color: rgba(243, 244, 249, 1);
+  background-color: rgba(240, 240, 240, 1);
   position: relative;
   height: 100vh;
   width: 100%;

@@ -1,25 +1,52 @@
 <template>
   <div class="stuffMessage">
     <!-- 用于显示产品的背景图片 -->
-    <div class="background" :style="`background-image: url(${stuffDetailMessage.img});`"></div>
+    <div class="background">
+<!--      :style="`background-image: url(${stuffDetailMessage.proimgs[0].imgUrl});`"-->
+      <img class="img" v-for="(img,index) in stuffDetailMessage.proimgs" :key="index" v-lazy="img.imgUrl" >
+    </div>
+<!--    留言-->
+    <div class="command">
+      <van-panel title="留言">
+        <div class="msg" v-for="(command,index) in stuffDetailMessage.proCommands" :key="index">
+          <div class="ti">{{command.userName}}</div>
+          <div class="con">{{command.content}}</div>
+        </div>
+      </van-panel>
+    </div>
+
     <!-- 标题栏和喜欢收藏按钮 -->
     <div class="header">
       <van-row>
-        <van-col span="20" class="con_title">{{stuffDetailMessage.name}}</van-col>
-        <van-col span="2">
+        <van-col span="21" class="con_title">{{stuffDetailMessage.name}}</van-col>
+        <van-col span="1">
+          <van-icon name="chat-o" size="1.2rem" color="#000000" @click="show=true" />
+        </van-col>
+        <!--<van-col span="2">
           <van-icon name="star-o" size="1.2rem" color="#448c47" />
         </van-col>
         <van-col span="2">
           <van-icon name="like-o" size="1.2rem" color="#ce3f12" />
-        </van-col>
+        </van-col>-->
       </van-row>
     </div>
+    <!-- 留言 -->
+    <!--<van-dialog v-model="show" title="标题" show-cancel-button>
+      <van-field v-model="mesvalue" placeholder="请输入用户名" />
+    </van-dialog>-->
+    <van-overlay :show="show" @click="show = false">
+      <div class="msg_con" @click.stop>
+        <van-field v-model="mesvalue" placeholder="请输入用户名" />
+      </div>
+    </van-overlay>
+
+
     <!-- 产品的标题 -->
     <div class="title" v-show="!isShowDetail">
       <div class="name">{{stuffDetailMessage.name || 'StuffName'}}</div>
     </div>
     <!-- 产品的描述 -->
-    <div class="description" v-show="!isShowDetail">This is stuffMessage description.</div>
+    <div class="description" v-show="!isShowDetail">￥ {{stuffDetailMessage.price}}</div>
     <!-- 展开按钮 -->
     <div class="show-button">
       <div
@@ -27,8 +54,8 @@
         @click="this.handleClickShowButton"
         :class="{body : true,arrowUp : !isShowDetail,arrowDown : isShowDetail}"
       >
-        <van-icon name="arrow-up" color="rgba(255,255,255,1)" size="30px" />
-        <van-icon name="arrow-up" color="rgba(255,255,255,1)" size="15px" />
+        <van-icon name="arrow-up" color="rgba(200,200,200,1)" size="30px" />
+        <van-icon name="arrow-up" color="rgba(200,200,200,1)" size="15px" />
       </div>
     </div>
 
@@ -39,11 +66,10 @@
         <div class="name">{{stuffDetailMessage.name || 'StuffName'}}</div>
       </div>
       <!-- 产品的描述 -->
-      <div class="description">This is stuffMessage description.</div>
+      <div class="description">￥ {{stuffDetailMessage.price}}</div>
       <div class="message">
-        <pre>
-          {{formatStuffMessage}}
-        </pre>
+        <p>{{formatStuffMessage.detail}}</p>
+        <p>邮费：{{formatStuffMessage.freight}}</p>
       </div>
     </div>
 
@@ -58,7 +84,16 @@ import StuffTab from "./component/StuffTab";
 import Vue from "vue";
 import { Col, Row, Icon } from "vant";
 import { mapActions, mapGetters } from "vuex";
+import { Dialog } from 'vant';
+import { Overlay } from 'vant';
+import { Skeleton } from 'vant';
+import { Panel } from 'vant';
 
+Vue.use(Panel);
+Vue.use(Skeleton);
+Vue.use(Overlay);
+// 全局注册
+Vue.use(Dialog);
 Vue.use(Icon);
 Vue.use(Col);
 Vue.use(Row);
@@ -71,45 +106,71 @@ export default {
   data() {
     return {
       isShowDetail: false,
-      formatStuffMessage: ""
+      formatStuffMessage: {
+        name: '',
+        price: '',
+        detail: '',
+        freight: ''
+      },
+      currentImage : 0,
+      show: false,
+      mesvalue: ''
     };
   },
   computed: {
     ...mapGetters({
       stuffDetailMessage: "getStuffDetailMessage"
-    })
+    }),
+
   },
   methods: {
     handleClickShowButton() {
       this.isShowDetail = !this.isShowDetail;
-      this.formatStuffMessage = JSON.stringify(
-        this.stuffDetailMessage,
-        null,
-        " "
-      )
-        .replace(/"/g, "")
-        .replace(/{/g, "")
-        .replace(/}/g, "");
-    }
+      this.formatStuffMessage.detail = this.stuffDetailMessage.detail;
+      this.formatStuffMessage.name = this.stuffDetailMessage.name;
+      this.formatStuffMessage.price = this.stuffDetailMessage.price;
+      this.formatStuffMessage.freight = this.stuffDetailMessage.freight;
+    },
   }
 };
 </script>
 
 <style scoped>
+  .command{
+    margin-bottom: 8vh;
+  }
+  .msg > .ti{
+    padding: 0px 17px;
+    color: #323233;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .msg > .con {
+    padding: 3px 17px;
+    color: #7c7a77;
+    font-size: 12px;
+    line-height: 18px;
+  }
 .stuffMessage {
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
-
+.msg_con{
+  width: 100%;
+}
 .stuffMessage > .background {
   z-index: -1;
-  height: 100%;
+  /*height: 100%;*/
   width: 100%;
-  position: absolute;
   filter: saturate(20%);
   background-repeat: no-repeat;
   background-clip: inherit;
   background-attachment: fixed;
+}
+
+.stuffMessage > .background > img{
+  width: 100%;
+  height: auto;
 }
 
 .stuffMessage > .header {
@@ -118,37 +179,42 @@ export default {
   color: rgba(255, 255, 255, 1);
   font-size: 20px;
   font-weight: 600;
+  position: absolute;
+  top: 0;
+  width: 100vw;
 }
 
 .stuffMessage > .title {
-  padding: 16px;
-  position: absolute;
-  bottom: 30vh;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  color: rgba(255, 255, 255, 1);
-  font-size: 20px;
-  font-weight: 600;
-  transition: all 1s ease-in-out;
-}
-
-.stuffMessage > .description {
   padding: 16px;
   position: absolute;
   bottom: 20vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(200, 200, 200, 1);
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 1s ease-in-out;
+  right: 1vw;
+}
+
+.stuffMessage > .description {
+  padding: 16px;
+  position: absolute;
+  bottom: 17vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: rgba(200, 200, 200, 1);
   font-size: 14px;
   font-weight: 600;
   transition: all 1s ease-in-out;
+  right: 1vw;
 }
 
 .stuffMessage > .buy {
-  background-color: rgba(247, 93, 55, 1);
-  height: 10vh;
+  background-color: rgb(194, 105, 83);
+  height: 8vh;
   width: 100vw;
   position: absolute;
   bottom: 0px;
@@ -156,16 +222,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba(255, 255, 255, 1);
-  font-size: 20px;
-  font-weight: 600;
+  color: #f0f0f0;
+  font-size: 18px;
+  font-weight: 550;
 }
 
 .show-button {
-  height: 100px;
+  height: 9vh;
   width: 100vw;
   position: absolute;
-  bottom: 10vh;
+  bottom: 8vh;
   display: flex;
   justify-content: center;
 }
@@ -209,8 +275,8 @@ export default {
 }
 
 .showDetail {
-  background-color: rgba(0, 0, 0, 0.2);
-  height: 50vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  /*height: 50vh;*/
   width: 100vw;
   overflow: hidden;
 }

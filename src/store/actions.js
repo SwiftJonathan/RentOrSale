@@ -200,9 +200,7 @@ export const fetchFirstPageStuffList = (context) => {
         }
     ];
     try {
-        axios.get(`${HTTP_URL}/pro/allPro`,{
-          timeout : 2
-        })
+        axios.get(`${HTTP_URL}/pro/allPro`)
             .then((res) => {
               if (res.status === 200 && res.data) {
                 context.commit('setFirstPageStuffList', res.data);
@@ -211,8 +209,6 @@ export const fetchFirstPageStuffList = (context) => {
                 context.commit('setFirstPageStuffList', mockData);
               }
             });
-      const error = null;
-      error.getError();
     }
     catch (e) {
       console.log("pro use mock data");
@@ -356,13 +352,13 @@ export const fetchSaleStuffList = (context, payload) => {
   console.log("salepayload", payload);
   let request_type = "stuffNotSell";
   if (type === '0')
-    request_type = "stuffNotSell";
+    request_type = "pro/stuffNotSell";
   else if (type === '1')
-    request_type = "stuffSell";
+    request_type = "order/orderOut";
   else if (type === 2 || type === '2')
-    request_type = "stuffBuyIn";
+    request_type = "order/orderIn";
   try {
-    axios.get(`${HTTP_URL}/pro/${request_type}/${user_id}`)
+    axios.get(`${HTTP_URL}/${request_type}/${user_id}`)
       .then((res) => {
         console.log("fetchSaleStuffList res", res);
         context.commit('setSaleStuffList', res.data);
@@ -398,15 +394,15 @@ export const fetchRentStuffList = (context, payload) => {
   const {type} = payload;
   const {user_id} = payload;
 //type:0未租出， 1已租出， 租入
-  let request_type = "stuffNotRent";
+  let request_type = "pro/stuffNotRent";
   if (type === '0')
-    request_type = "stuffNotRent";
+    request_type = "pro/stuffNotRent";
   else if (type === '1')
-    request_type = "stuffRent";
+    request_type = "order/rentOut";
   else if (type === 2 || type === '2')
-    request_type = "stuffRentIn";
+    request_type = "order/rentIn";
   try {
-    axios.get(`${HTTP_URL}/pro/${request_type}/${user_id}`)
+    axios.get(`${HTTP_URL}/${request_type}/${user_id}`)
       .then((res) => {
         console.log("fetchRentStuffList res", res);
         context.commit('setRentStuffList', res.data);

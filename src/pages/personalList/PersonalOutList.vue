@@ -5,10 +5,10 @@
 <!--    <div>publishOrSail: {{publishOrSail}}</div>-->
     <van-tabs v-model="RentOrSell">
       <van-tab title="转卖">
-        <Item rent_or_sell="0" />
+        <Item rent_or_sell="0" out_or_in="0" :publish_or_sale=this.$route.params.publishOrSail />
       </van-tab>
       <van-tab title="出租">
-        <Item rent_or_sell="1" />
+        <Item rent_or_sell="1" out_or_in="0" :publish_or_sale=this.$route.params.publishOrSail  />
       </van-tab>
     </van-tabs>
   </div>

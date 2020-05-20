@@ -127,6 +127,7 @@
             proId: this.stuffDetailMessage.id,
             //运费
             freight: this.postmethod === '1' ? '0' : this.stuffDetailMessage.freight,
+            statu: 0,
           };
           if (this.BuyOrRent === '0'){
             params["stuffprice"] = this.stuffDetailMessage.price;

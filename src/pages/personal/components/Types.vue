@@ -24,7 +24,6 @@
           <div class="type_name">我租到的</div>
         </div>
       </div>
-
     </div>
 </template>
 
@@ -77,7 +76,7 @@
             }
           })
         },
-          handleClickBuy() {
+        handleClickBuy() {
           this.$router.push({
             name: "PersonalInList",
             params: {

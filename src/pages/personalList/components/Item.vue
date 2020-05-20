@@ -24,7 +24,7 @@
   export default {
       name: "Item",
       //RentOrSell: index: 1转卖，2租出
-      props: ["rent_or_sell"],
+      props: ["rent_or_sell", "publish_or_sale", "out_or_in"],
       data() {
           return {
             RentOrSail: '0',
@@ -57,18 +57,31 @@
       },
     methods: {
       ...mapActions({
-        fetchOrderDetailMessage: "fetchOrderDetailMessage"
+        fetchOrderDetailMessage: "fetchOrderDetailMessage",
+        fetchStuffDetailMessage: "fetchStuffDetailMessage",
       }),
       handleOrderClick(index){
         console.log("handleOrderClick val", this.rent_or_sell === '0'? this.saleStuffList[index] : this.rentStuffList[index]);
         console.log("rent_or_sell", this.rent_or_sell);
-        this.fetchOrderDetailMessage({orderMessage:  this.rent_or_sell === '0'? this.saleStuffList[index] : this.rentStuffList[index] });
-        this.$router.push({
-          name: "Order",
-          params: {
-            OrderOrRent: this.rent_or_sell
-          }
-        })
+        console.log("publish_or_sale", this.publish_or_sale);
+        console.log("out_or_in", this.out_or_in);
+        if (this.publish_or_sale === '0'){
+          this.fetchStuffDetailMessage({stuffMessage: this.rent_or_sell === '0'? this.saleStuffList[index] : this.rentStuffList[index]});
+          this.$router.push({
+            name: "StuffMessage",
+            params: {
+            }
+          })
+        }else{
+          this.fetchOrderDetailMessage({orderMessage:  this.rent_or_sell === '0'? this.saleStuffList[index] : this.rentStuffList[index] });
+          this.$router.push({
+            name: "Order",
+            params: {
+              OrderOrRent: this.rent_or_sell,
+              OutOrIn: this.out_or_in
+            }
+          })
+        }
       }
     }
     }

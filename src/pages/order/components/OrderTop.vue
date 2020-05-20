@@ -3,13 +3,14 @@
       <div class="top_icon">
           <van-icon name="arrow-left" />
       </div>
-      {{status}}
+      {{msg}}
     </div>
 </template>
 
 <script>
     export default {
       name: "OrderTop",
+      props: ['msg'],
       data() {
           return {
             status: '订单完成',
