@@ -7,7 +7,21 @@
     <div class="location">
       <span>Location</span>
       <span class="colored">{{user.location}}</span>
-      <van-icon name="location-o" size="14" />
+      <van-icon name="location-o" size="14" @click="location_show=true"/>
+    </div>
+<!--    位置-->
+    <div class="area" v-if="location_show" @click.stop>
+      <van-row>
+        <van-col span="1" offset="22">
+          <van-icon name="cross" @click="location_show=false" color="#444444" />
+        </van-col>
+      </van-row>
+      <van-tree-select
+        :items="items"
+        :active-id.sync="activeId"
+        :main-active-index.sync="activeIndex"
+      />
+      <div class="area-btn">确定</div>
     </div>
     <van-overlay :show="show" @click="show = false">
       <div class="wrapper">
@@ -32,7 +46,9 @@
 import Vue from "vue";
 import { Col, Row, Icon, Overlay, Search, Toast } from "vant";
 import { mapGetters } from "vuex";
+import { TreeSelect } from 'vant';
 
+Vue.use(TreeSelect);
 Vue.use(Search);
 Vue.use(Overlay);
 Vue.use(Icon);
@@ -44,7 +60,42 @@ export default {
   data() {
     return {
       show: false,
-      value: ""
+      location_show: false,
+      value: "",
+      items:[
+        {
+          id: '',
+          name: '',
+          text: '测试大学',
+          children: [
+            {
+              text: '测试校区',
+              // id，作为匹配选中状态的标识符
+              id: 1,
+            },
+          ],
+        },
+        {
+          text: '南昌大学',
+          children: [
+            {
+              text: '前湖校区',
+              // id，作为匹配选中状态的标识符
+              id: 1,
+            },
+            {
+              text: '青山湖校区',
+              id: 2
+            },
+            {
+              text: '共青校区',
+              id: 3
+            },
+          ],
+        },
+      ],
+      activeId: 1,
+      activeIndex: 0,
     };
   },
   computed: {
@@ -97,4 +148,29 @@ export default {
   color: rgba(236, 158, 187, 1);
   margin-left: 1em;
 }
+  .van-tree-select__content{
+    color: #9e9e9e;
+  }
+  .van-tree-select__item--active {
+    color: #e76a42;
+  }
+  .area{
+    width: 86%;
+    margin-left: 5%;
+    margin-top: 11vh;
+    position: absolute;
+    z-index: 9999;
+    box-shadow: #b2b0b0 0px 0px 11px;
+    border-radius: 7px;
+    padding: 2%;
+    color: #f0f0f0;
+    background-color: #f0f0f0;
+  }
+  .area-btn{
+    color: #fafafa;
+    background-color: #6a6d6e;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+  }
 </style>

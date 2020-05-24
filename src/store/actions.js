@@ -275,17 +275,18 @@ export const fetchLikeStuffList = (context, payload) => {
 
 export const fetchStuffDetailMessage = (context, payload) => {
   console.log('fetchStuffDetailMessage');
-  const {stuffMessage} = payload;
+  const {stuffId} = payload;
   try {
-    /*axios.get(`${HTTP_URL}/pro/onePro/{id}`)
+    axios.get(`${HTTP_URL}/pro/onePro/${stuffId}`)
       .then((res) => {
         if (res.status === 200 && res.data) {
+          console.log('fetchStuffDetailMessage res', res);
           context.commit('setStuffDetailMessage', res.data);
         }else {
           console.log("pro use mock data");
         }
-      })*/
-    context.commit('setStuffDetailMessage',stuffMessage);
+      })
+    // context.commit('setStuffDetailMessage',stuffMessage);
   }
   catch (e) {
     console.log("pro use mock data");

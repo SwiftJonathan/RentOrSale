@@ -36,7 +36,11 @@
     </van-dialog>-->
     <van-overlay :show="show" @click="show = false">
       <div class="msg_con" @click.stop>
-        <van-field v-model="mesvalue" placeholder="请输入用户名" />
+        <van-field v-model="msgvalue" placeholder="请输入留言内容" >
+          <template #button>
+            <van-button class="msg_btn" size="small" type="default" @click="addMsg()">确认</van-button>
+          </template>
+        </van-field>
       </div>
     </van-overlay>
 
@@ -88,6 +92,9 @@ import { Dialog } from 'vant';
 import { Overlay } from 'vant';
 import { Skeleton } from 'vant';
 import { Panel } from 'vant';
+import axios from "axios";
+import { HTTP_URL } from "@/store/const.js";
+import { Toast } from "vant";
 
 Vue.use(Panel);
 Vue.use(Skeleton);
@@ -114,16 +121,20 @@ export default {
       },
       currentImage : 0,
       show: false,
-      mesvalue: ''
+      msgvalue: ''
     };
   },
   computed: {
     ...mapGetters({
-      stuffDetailMessage: "getStuffDetailMessage"
+      stuffDetailMessage: "getStuffDetailMessage",
+      user: "getUser"
     }),
 
   },
   methods: {
+    ...mapActions({
+      fetchStuffDetailMessage: "fetchStuffDetailMessage",
+    }),
     handleClickShowButton() {
       this.isShowDetail = !this.isShowDetail;
       this.formatStuffMessage.detail = this.stuffDetailMessage.detail;
@@ -131,6 +142,42 @@ export default {
       this.formatStuffMessage.price = this.stuffDetailMessage.price;
       this.formatStuffMessage.freight = this.stuffDetailMessage.freight;
     },
+    beforeHandler(){
+      if (this.user.id === undefined){
+        this.$router.push({
+          name: "Login",
+        });
+        return false;
+      }
+      return true;
+    },
+    addMsg(){
+      if (!this.beforeHandler()) {
+        return;
+      }
+      let data = new FormData();
+      data.append('content', this.msgvalue);
+      data.append('userId', this.user.id);
+      data.append('userName', this.user.username);
+      data.append('proId', this.stuffDetailMessage.id);
+      for (let key of data.keys()) {
+        console.log(key, data.getAll(key));
+      }
+      axios.post(`${HTTP_URL}/message/addMes`, data)
+        .then(
+          res => {
+            console.log(res);
+            // this.handlerClearForm();
+            Toast(res.data);
+          },
+          rej => {
+            console.log(rej);
+            Toast(rej.data);
+          }
+        );
+      this.show = false;
+      this.fetchStuffDetailMessage({stuffId: this.stuffDetailMessage.id});
+    }
   }
 };
 </script>
@@ -150,6 +197,12 @@ export default {
     color: #7c7a77;
     font-size: 12px;
     line-height: 18px;
+  }
+  .msg > .msg_btn{
+
+  }
+  .msg > .van-field__control {
+    width: 80%;
   }
 .stuffMessage {
   height: 100vh;
