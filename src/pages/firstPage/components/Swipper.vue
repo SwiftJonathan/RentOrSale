@@ -16,7 +16,7 @@
     </div>-->
 
     <van-swipe class="swipper-body" indicator-color="white" :touchable="true" width="80vw">
-      <van-swipe-item v-for="item in someStuffList" :key="item.key" indicator-color="#111727">
+      <van-swipe-item v-for="(item,index) in someStuffList" :key="index" indicator-color="#111727">
         <div class="swipper-item">
           <div class="swipper-item-body">
             <div class="swipper-tag">

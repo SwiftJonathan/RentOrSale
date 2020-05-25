@@ -4,6 +4,10 @@ export const getUser = state => {
     return state.user;
 };
 
+export const getArea = state => {
+  return state.area;
+};
+
 export const getStuffList = state => {
     return state.stuffList;
 }

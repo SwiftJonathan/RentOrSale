@@ -1,6 +1,6 @@
 <template>
   <div class="personal">
-    <WelcomeMessage />
+    <WelcomeMessage :SearchOrUser="1" />
     <Types />
   </div>
 </template>

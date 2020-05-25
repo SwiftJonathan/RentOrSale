@@ -1,6 +1,6 @@
 <template>
   <div class="first-page">
-    <WelcomeMessage />
+    <WelcomeMessage :SearchOrUser="0" />
 
     <Cates />
 

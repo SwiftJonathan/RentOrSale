@@ -15,6 +15,7 @@ import Personal from '../pages/personal/Personal'
 import PersonalInList from '../pages/personalList/PersonalInList'
 import PersonalOutList from '../pages/personalList/PersonalOutList'
 import Order from '../pages/order/Order'
+import UserEdit from '../pages/userEdit/UserEdit'
 
 Vue.use(Router)
 
@@ -94,6 +95,11 @@ export default new Router({
       path: '/order',
       name: 'Order',
       component: Order
+    },
+    {
+      path: '/user-edit',
+      name: 'UserEdit',
+      component: UserEdit
     }
   ]
 })

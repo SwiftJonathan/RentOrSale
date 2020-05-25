@@ -78,7 +78,9 @@
     </div>
 
     <!-- 购买按钮 -->
-    <div class="buy">现在购买</div>
+<!--    <div class="buy">现在购买</div>-->
+    <div class="buy" v-if="stuffDetailMessage.rentOrSail !== 1" @click="handleBuyClick">购买{{stuffDetailMessage.price}}</div>
+    <div class="buy" v-show="stuffDetailMessage.rentOrSail !== 0" @click="handleRentClick">租赁{{stuffDetailMessage.price}}</div>
   </div>
 </template>
 
@@ -177,6 +179,26 @@ export default {
         );
       this.show = false;
       this.fetchStuffDetailMessage({stuffId: this.stuffDetailMessage.id});
+    },
+    handleBuyClick() {
+      if (this.beforeHandler()){
+        this.$router.push({
+          name: "BuyStuff",
+          params: {
+          }
+        })
+      }
+
+    },
+    handleRentClick(){
+      if ( this.beforeHandler()){
+        this.$router.push({
+          name: "RentStuff",
+          params: {
+          }
+        })
+      }
+
     }
   }
 };
@@ -277,7 +299,7 @@ export default {
   align-items: center;
   color: #f0f0f0;
   font-size: 18px;
-  font-weight: 550;
+  font-weight: 500;
 }
 
 .show-button {

@@ -2,10 +2,10 @@
   <div class="list">
     <!-- <div>{{firstPageStuffList}}</div> -->
     <!-- <div class="list-split-line"></div> -->
-    <div class="list-header">
+<!--    <div class="list-header">
       <div class="title">As You Like</div>
       <div class="button" @click="refreshClick()">Refresh</div>
-    </div>
+    </div>-->
     <div
       v-for="(stuff,index) in firstPageStuffList"
       v-lazy:background-image="stuff.img ? stuff.img : ((stuff.proimgs == null || stuff.proimgs.length === 0) ? noImageUrl : stuff.proimgs[0].imgUrl)"
@@ -97,6 +97,7 @@ if(!res || res && !res.data || res && res.data && !Array.isArray(res.data) || re
 <style scoped>
 .list {
   padding: 14px 28px;
+  margin: 40px 0;
 }
 .list-split-line {
   margin: 0px 0px 0px 14px;

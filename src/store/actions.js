@@ -19,6 +19,23 @@ export const fetchUser = (context, payload) => {
   context.commit("setUser", user);
 };
 
+export const fetchArea = (context, payload) => {
+  console.log('fetchArea');
+  try {
+    axios.get(`${HTTP_URL}/area/allArea`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setArea', res.data);
+        }else {
+          console.log("fetch area data error");
+        }
+      });
+  }
+  catch (e) {
+    console.log("fetch area data error");
+  }
+};
+
 export const fetchStuffList = (context) => {
     new Promise((rel, rej) => {
         rel();
@@ -214,6 +231,40 @@ export const fetchFirstPageStuffList = (context) => {
       console.log("pro use mock data");
       context.commit('setFirstPageStuffList', mockData);
     }
+};
+
+export const fetchFirstPageSaleStuffList = (context) => {
+  console.log('fetchFirstPageSaleStuffList');
+  try {
+    axios.get(`${HTTP_URL}/pro/allSell`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setFirstPageStuffList', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      });
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
+};
+
+export const fetchFirstPageRentStuffList = (context) => {
+  console.log('fetchFirstPageRentStuffList');
+  try {
+    axios.get(`${HTTP_URL}/pro/allRent`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setFirstPageStuffList', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      });
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
 };
 
 export const fetchPageStuffList = (context, payload) => {

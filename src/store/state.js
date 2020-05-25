@@ -7,6 +7,7 @@ const state = {
     user: {},
     todoList: ['1', '2', '3'],
     stuffList: [],
+  area: [],
 
   firstPageStuffList: [],
   pageStuffData: [],

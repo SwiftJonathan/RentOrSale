@@ -1,6 +1,6 @@
 <template>
   <div class="stuff-list">
-    <div class="tools">
+    <div class="tools" v-if="this.$route.params.cateOrLike === '0' || this.$route.params.cateOrLike === '1'">
       <div class="back">
         <van-icon name="down" color="rgba(255,255,255,1)" size="1.5em" />
       </div>
@@ -19,6 +19,16 @@
         <div class="search">
           <van-icon name="search" size="20px" />
         </div>
+      </div>
+    </div>
+
+    <div class="list-header" v-if="this.$route.params.cateOrLike !== '0' && this.$route.params.cateOrLike !== '1'">
+      <div class="title">
+        <span class="buy" @click="sellClick">买</span>
+        <span class="rent" @click="rentClick">租</span>
+      </div>
+      <div class="button" @click="refreshClick()">
+        <van-icon name="replay" size="16" color="#87898a" />
       </div>
     </div>
 
@@ -43,8 +53,22 @@ export default {
       fetchFirstPageStuffList: "fetchFirstPageStuffList",
       fetchCateStuffList: "fetchCateStuffList",
       fetchLikeStuffList: "fetchLikeStuffList",
-      fetchPageStuffList: "fetchPageStuffList"
-    })
+      fetchPageStuffList: "fetchPageStuffList",
+      fetchStuffDetailMessage: "fetchStuffDetailMessage",
+      fetchFirstPageRentStuffList: "fetchFirstPageRentStuffList",
+      fetchFirstPageSaleStuffList: "fetchFirstPageSaleStuffList",
+    }),
+    refreshClick(){
+      let curr = ( this.pageStuffData && this.pageStuffData.pageNum ) ? this.pageStuffData.pageNum+1 : 0;
+      if (curr > this.pageStuffData.pages) curr = 0;
+      this.fetchPageStuffList({currPage: curr});
+    },
+    sellClick(){
+      this.fetchFirstPageSaleStuffList();
+    },
+    rentClick(){
+      this.fetchFirstPageRentStuffList();
+    }
   },
   computed: {
     ...mapGetters({
@@ -67,9 +91,44 @@ export default {
 </script>
 
 <style scope>
+  .list-header > .title {
+    font-size: 15px;
+    font-weight: 540;
+    color: aliceblue;
+  }
+  .list-header > .title > .buy{
+    background-color: #40976D;
+    border-radius: 50%;
+    padding: 7px;
+    box-shadow: #7f998b 0px 0px 5px;
+  }
+  .list-header > .title > .rent{
+    background-color: #E3CA93;
+    border-radius: 50%;
+    padding: 7px;
+    box-shadow: #b8b1a6 0px 0px 5px;
+  }
+  .list-header > .button {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 6px;
+    margin-left: 5px;
+    box-shadow: #a8a094 0px 0px 5px;
+    border-radius: 50%;
+  }
+  .list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 14px 0px;
+    position: absolute;
+    z-index: 99;
+    right: 5px;
+  }
 .stuff-list {
   background-color: rgba(240, 240, 240, 1);
-  position: relative;
+  /*position: relative;*/
   height: 100vh;
   width: 100%;
   overflow: auto;

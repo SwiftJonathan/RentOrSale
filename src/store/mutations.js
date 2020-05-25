@@ -4,6 +4,9 @@ const mutation = {
   setUser(state, user) {
     state.user = user;
   },
+  setArea(state, area) {
+    state.area = area;
+  },
     setTodoList(state, todoList) {
         state.todoList = todoList;
     },

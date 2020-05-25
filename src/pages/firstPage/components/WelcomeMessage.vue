@@ -2,12 +2,13 @@
   <div class="welcome-message">
     <div class="title-and-search">
       <span>Hello! {{user.username}}-{{user.id}}</span>
-      <van-icon name="search" size="24" @click="show = true" />
+      <van-icon name="search" size="24" @click="show = true"  v-if="SearchOrUser === 0"/>
+      <van-icon name="user-o" size="24" @click="toUserEdit()"  v-if="SearchOrUser === 1"/>
     </div>
     <div class="location">
       <span>Location</span>
-      <span class="colored">{{user.location}}</span>
-      <van-icon name="location-o" size="14" @click="location_show=true"/>
+      <span class="colored">{{user.locationScName}}·{{user.locationAreaName}}</span>
+      <van-icon name="location-o" size="14" @click="clickLoc()"/>
     </div>
 <!--    位置-->
     <div class="area" v-if="location_show" @click.stop>
@@ -21,7 +22,7 @@
         :active-id.sync="activeId"
         :main-active-index.sync="activeIndex"
       />
-      <div class="area-btn">确定</div>
+      <div class="area-btn" @click="confirmLoc()">确定</div>
     </div>
     <van-overlay :show="show" @click="show = false">
       <div class="wrapper">
@@ -45,7 +46,7 @@
 <script>
 import Vue from "vue";
 import { Col, Row, Icon, Overlay, Search, Toast } from "vant";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { TreeSelect } from 'vant';
 
 Vue.use(TreeSelect);
@@ -57,6 +58,7 @@ Vue.use(Row);
 
 export default {
   name: "HomeTop",
+  props: ["SearchOrUser"],
   data() {
     return {
       show: false,
@@ -65,8 +67,7 @@ export default {
       items:[
         {
           id: '',
-          name: '',
-          text: '测试大学',
+          text: '测试大学bendi',
           children: [
             {
               text: '测试校区',
@@ -100,10 +101,29 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: "getUser"
+      user: "getUser",
+      area: "getArea",
     })
   },
   methods: {
+    ...mapActions({
+      fetchArea: "fetchArea"
+    }),
+    clickLoc(){
+      this.location_show=true;
+      this.fetchArea();
+      this.items = this.area;
+      console.log("items", this.items);
+    },
+    confirmLoc(){
+      console.log("activeIndex", this.activeIndex);
+      console.log("activeIndex id", this.items[this.activeIndex].id);
+      console.log("activeIndex text", this.items[this.activeIndex].text);
+      console.log("activeId", this.activeId);
+      let activeArea = this.items[this.activeIndex].children.filter(area => area.id === this.activeId);
+      console.log("activeArea", activeArea);
+      console.log("activeArea text", activeArea[0].text);
+    },
     onSearch(val) {
       Toast(val);
       console.log("handleSearch val", val);
@@ -116,9 +136,27 @@ export default {
         }
       })
     },
+    toUserEdit(){
+      if (this.beforeHandler()){
+        this.$router.push({
+          name: "UserEdit",
+          params: {
+          }
+        })
+      }
+    },
     onCancel() {
       Toast("取消");
-    }
+    },
+    beforeHandler(){
+      if (this.user.id === undefined){
+        this.$router.push({
+          name: "Login",
+        });
+        return false;
+      }
+      return true;
+    },
   }
 };
 </script>
@@ -143,10 +181,11 @@ export default {
   padding: 14px 28px;
   font-size: 12px;
   font-weight: 600;
+  line-height: 1.5rem;
 }
 .location > .colored {
   color: rgba(236, 158, 187, 1);
-  margin-left: 1em;
+  margin: 0 0.1rem 0 0.8rem;
 }
   .van-tree-select__content{
     color: #9e9e9e;

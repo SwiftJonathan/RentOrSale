@@ -1,8 +1,8 @@
 <template>
     <div class="order">
 <!--      <TopReturnBar msg="" />-->
-      <OrderTop :msg="this.$route.params.OutOrIn === '0' ? present_statu.provider_show : present_statu.buyer_show" />
-      <OrderDetail />
+      <OrderTop :msg="this.$route.params.OutOrIn === '0' ? present_statu.provider_show : present_statu.buyer_show" :rentmsg="present_statu.rentmsg" />
+      <OrderDetail :order_or_rent="this.$route.params.OrderOrRent" />
       <div class="order_btm">
         <div v-if="this.$route.params.OutOrIn === '0' ? present_statu.provider_btn : present_statu.buyer_btn" class="order_btn" @click="handleClick('btn1')">
           {{this.$route.params.OutOrIn === '0' ? present_statu.provider_btn : present_statu.buyer_btn}}
@@ -35,6 +35,7 @@
           buyer_btn: '',
           provider_btn:'',
           provider_btn2:'',
+          rentmsg: ''
         },
         orderStatus:[
           {
@@ -136,7 +137,7 @@
             //7
             buyer_show: '超期归还',
             provider_show: '超期归还',
-            buyer_btn: '归还',
+            buyer_btn: '超期归还',
             buyer_btn2: '',
             provider_btn:'',
             provider_btn2:'',
@@ -337,7 +338,21 @@
               );
           }
         }
-      }
+      },
+      //计算天数差的函数，通用
+      DateDiff(sDate1,  sDate2){    //sDate1和sDate2是2002-12-18格式
+        console.log("sdata1", sDate1);
+        console.log("sdata2", sDate2);
+        sDate1 = sDate1.split(" ")[0];
+        sDate2 = sDate2.split(" ")[0];
+        let  aDate,  oDate1,  oDate2,  iDays
+        aDate  =  sDate1.split("-")
+        oDate1  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0])    //转换为12-18-2002格式
+        aDate  =  sDate2.split("-")
+        oDate2  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0])
+        iDays  =  parseInt(Math.abs(oDate1  -  oDate2)  /  1000  /  60  /  60  /24)    //把相差的毫秒数转换为天数
+        return  iDays
+    }
     },
     mounted() {
       console.log("this orderDetailMessage", this.orderDetailMessage);
@@ -349,9 +364,26 @@
         this.present_statu = this.orderStatus[this.orderDetailMessage.statu];
       } else{
         this.present_statu = this.rentStatus[this.orderDetailMessage.statu];
+        if (this.orderDetailMessage.statu === 3){
+          let nowDate = new Date().toLocaleDateString().replace(/\//g,'-');
+          let days = this.DateDiff(nowDate, this.orderDetailMessage.rentStartTime);
+          console.log("this.datediff days", days);
+          this.present_statu.rentmsg = '剩余租赁时间 ' + (this.orderDetailMessage.rentDays - days) + ' 天';
+          if (days > this.orderDetailMessage.rentDays) {
+            this.present_statu = this.rentStatus[7];
+            console.log("this orderDetailMessage statu 7");
+            this.present_statu.rentmsg = '超出租赁时间 ' + (days - this.orderDetailMessage.rentDays) + ' 天';
+            if ((days - this.orderDetailMessage.rentDays) > (this.orderDetailMessage.deposit / this.orderDetailMessage.unitprice)) {
+              this.present_statu = this.rentStatus[9];
+              console.log("this orderDetailMessage statu 9");
+            }
+          }
+          console.log("this.present_statu.rentmsg", this.present_statu.rentmsg);
+        }
       }
       console.log("this.present_statu", this.present_statu);
       console.log("order params", this.$route.params);
+      console.log("this.orderDetailMessage statu", this.orderDetailMessage.statu);
     },
   }
 </script>
