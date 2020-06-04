@@ -18,7 +18,10 @@
     <!-- 标题栏和喜欢收藏按钮 -->
     <div class="header">
       <van-row>
-        <van-col span="21" class="con_title">{{stuffDetailMessage.name}}</van-col>
+        <van-col span="1">
+          <van-icon name="arrow-left" size="1.3rem" @click="handleInfoBack()" />
+        </van-col>
+        <van-col span="20" class="con_title" :offset="1">{{stuffDetailMessage.name}}</van-col>
         <van-col span="1">
           <van-icon name="chat-o" size="1.2rem" color="#000000" @click="show=true" />
         </van-col>
@@ -131,12 +134,32 @@ export default {
       stuffDetailMessage: "getStuffDetailMessage",
       user: "getUser"
     }),
-
+  },
+  mounted(){
+    this.fetchStuffDetailMessage({stuffId: this.$route.params.stuffId});
   },
   methods: {
     ...mapActions({
       fetchStuffDetailMessage: "fetchStuffDetailMessage",
     }),
+    handleInfoBack(){
+      console.log("this.$route.params.listOrOrder", this.$route.params.listOrOrder);
+      if (this.$route.params.listOrOrder === 0){
+        this.$router.push({
+          name: "StuffList",
+        });
+      }else {
+        this.$router.push({
+          name: "PersonalOutList",
+          params: {
+            name: "我发布的",
+            //publishOrSail 发布或者卖出： 0发布，1卖出
+            publishOrSail: "0",
+            typeMethod: '0',
+          }
+        });
+      }
+    },
     handleClickShowButton() {
       this.isShowDetail = !this.isShowDetail;
       this.formatStuffMessage.detail = this.stuffDetailMessage.detail;
@@ -171,14 +194,15 @@ export default {
             console.log(res);
             // this.handlerClearForm();
             Toast(res.data);
+            this.show = false;
+            this.fetchStuffDetailMessage({stuffId: this.stuffDetailMessage.id});
           },
           rej => {
             console.log(rej);
             Toast(rej.data);
           }
         );
-      this.show = false;
-      this.fetchStuffDetailMessage({stuffId: this.stuffDetailMessage.id});
+
     },
     handleBuyClick() {
       if (this.beforeHandler()){
@@ -249,7 +273,7 @@ export default {
 }
 
 .stuffMessage > .header {
-  padding: 16px;
+  padding: 16px 0;
   align-items: center;
   color: rgba(255, 255, 255, 1);
   font-size: 20px;
@@ -257,6 +281,7 @@ export default {
   position: absolute;
   top: 0;
   width: 100vw;
+  line-height: 100%;
 }
 
 .stuffMessage > .title {

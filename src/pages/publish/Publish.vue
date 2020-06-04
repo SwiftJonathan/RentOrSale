@@ -1,9 +1,5 @@
 <template>
   <div class="publish">
-    <div class="publish-back">
-      <van-icon name="down" size="20px" class="icon" />
-    </div>
-
     <div class="publish-type">
       <div class="title">
         <div class="show">
@@ -93,9 +89,9 @@
         <van-collapse v-model="activeNames" accordion>
           <van-collapse-item title="交易地址" name="1">
             <div>
-              <van-field v-model="owner_name" label="姓名" placeholder="请输入姓名" name="owner_name" />
-              <van-field v-model="owner_phone" label="电话" placeholder="请输入手机号" name="owner_phone" />
-              <van-field v-model="owner_address" label="地址" placeholder="请输入地址" name="owner_address" />
+              <van-field v-model="owner_name" label="姓名" placeholder="请输入姓名" name="ownerName" />
+              <van-field v-model="owner_phone" label="电话" placeholder="请输入手机号" name="ownerPhone" />
+              <van-field v-model="owner_address" label="地址" placeholder="请输入地址" name="ownerAddress" />
             </div>
           </van-collapse-item>
         </van-collapse>
@@ -115,11 +111,8 @@
         <div class="hidden">
           <van-field type="hidden" name="providerUserId" v-model="providerUserId" />
           <van-field type="hidden" name="rentPrice" v-model="price" />
-          <van-field type="hidden" name="locationScId" v-model="scId" />
-          <van-field type="hidden" name="locationScName" v-model="scName" />
-          <van-field type="hidden" name="locationAreaId" v-model="activeId" />
-          <van-field type="hidden" name="locationAreaName" v-model="areaName" />
-
+          <van-field type="hidden" name="locationId" v-model="activeId" />
+          <van-field type="hidden" name="locationName" v-model="areaName" />
         </div>
 
         <div class="submit form-item">
@@ -215,7 +208,21 @@ export default {
       this.areaName = activeArea[0].text;
       this.location_show=false;
     },
+    beforeHandler(){
+      console.log("beforeHandler user", this.user);
+      console.log("beforeHandler user.id", this.user.id);
+      console.log("store", this.$store.state.user);
+      if (this.user.id === undefined){
+        this.$router.push({
+          name: "Login",
+        });
+        return false;
+      }
+      return true;
+    },
     onSubmit(values) {
+      if (!this.beforeHandler())
+        return;
       console.log("values", values);
       let data = new FormData();
       this.fileList.map(element => {
@@ -236,8 +243,7 @@ export default {
         data.append("rentPrice", this.price);
         req_url = `${HTTP_URL}/pro/addRent`;
       }
-      axios
-        .post(req_url, data, {
+      axios.post(req_url, data, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
@@ -331,6 +337,7 @@ export default {
   overflow: hidden;
   background-color: rgba(240, 240, 240, 1);
   padding-bottom: 10vh;
+  padding-top: 27px;
 }
 .publish > .publish-back {
   width: 30px;

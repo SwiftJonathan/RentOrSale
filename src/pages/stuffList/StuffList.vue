@@ -1,8 +1,8 @@
 <template>
   <div class="stuff-list">
-    <div class="tools" v-if="this.$route.params.cateOrLike === '0' || this.$route.params.cateOrLike === '1'">
+    <div class="tools" v-if="this.$route.params.cateOrLike === '0' || this.$route.params.cateOrLike === '1' || this.$route.params.location ">
       <div class="back">
-        <van-icon name="down" color="rgba(255,255,255,1)" size="1.5em" />
+        <van-icon name="down" color="rgba(255,255,255,1)" size="1.5em" @click="handlerListBack()" />
       </div>
       <div class="info">
         <van-icon name="ellipsis" color="rgba(255,255,255,1)" size="1.5em" />
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="list-header" v-if="this.$route.params.cateOrLike !== '0' && this.$route.params.cateOrLike !== '1'">
+    <div class="list-header" v-if="this.$route.params.cateOrLike !== '0' && this.$route.params.cateOrLike !== '1' && !this.$route.params.location">
       <div class="title">
         <span class="buy" @click="sellClick">买</span>
         <span class="rent" @click="rentClick">租</span>
@@ -58,6 +58,11 @@ export default {
       fetchFirstPageRentStuffList: "fetchFirstPageRentStuffList",
       fetchFirstPageSaleStuffList: "fetchFirstPageSaleStuffList",
     }),
+    handlerListBack(){
+      this.$router.push({
+        name: "FirstPage",
+      });
+    },
     refreshClick(){
       let curr = ( this.pageStuffData && this.pageStuffData.pageNum ) ? this.pageStuffData.pageNum+1 : 0;
       if (curr > this.pageStuffData.pages) curr = 0;
@@ -77,15 +82,15 @@ export default {
   },
   mounted() {
     console.log("StuffList params",this.$route.params);
-    if (this.$route.params.cateOrLike === '0'){
-      this.fetchCateStuffList({cate_id: this.$route.params.cateId});
+    /*if (this.$route.params.cateOrLike === '0'){
+      // this.fetchCateStuffList({cate_id: this.$route.params.cateId});
     } else if (this.$route.params.cateOrLike === '1') {
-      this.fetchLikeStuffList({name: this.$route.params.name})
+      // this.fetchLikeStuffList({name: this.$route.params.name})
     }else {
       let curr = ( this.pageStuffData && this.pageStuffData.pageNum ) ? this.pageStuffData.pageNum+1 : 0;
       if (curr > this.pageStuffData.pages) curr = 0;
       this.fetchPageStuffList({currPage: curr});
-    }
+    }*/
   }
 };
 </script>

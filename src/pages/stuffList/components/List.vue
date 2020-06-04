@@ -63,10 +63,12 @@ export default {
     }),
     handleListItemClick(index){
       console.log("handleListItemClick val", this.firstPageStuffList[index]);
-      this.fetchStuffDetailMessage({stuffId: this.firstPageStuffList[index].id});
+      // this.fetchStuffDetailMessage({stuffId: this.firstPageStuffList[index].id});
       this.$router.push({
         name: "StuffMessage",
         params: {
+          stuffId: this.firstPageStuffList[index].id,
+          listOrOrder: 0
         }
       })
     },

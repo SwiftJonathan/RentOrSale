@@ -1,14 +1,14 @@
 <template>
   <div class="person_list">
-    <TopReturnBar :msg="this.$route.params.name" />
+    <TopReturnBar :msg="this.$route.params.name" target="Personal" />
 <!--    <div>RentOrSell: {{RentOrSell}}</div>-->
 <!--    <div>publishOrSail: {{publishOrSail}}</div>-->
     <van-tabs v-model="RentOrSell">
       <van-tab title="转卖">
-        <Item rent_or_sell="0" out_or_in="0" :publish_or_sale=this.$route.params.publishOrSail />
+        <Item rent_or_sell="0" out_or_in="0" :publish_or_sale=this.$route.params.publishOrSail :type_method="this.$route.params.typeMethod" />
       </van-tab>
       <van-tab title="出租">
-        <Item rent_or_sell="1" out_or_in="0" :publish_or_sale=this.$route.params.publishOrSail  />
+        <Item rent_or_sell="1" out_or_in="0" :publish_or_sale=this.$route.params.publishOrSail :type_method="this.$route.params.typeMethod"  />
       </van-tab>
     </van-tabs>
   </div>

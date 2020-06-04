@@ -4,8 +4,6 @@
 
     <Cates />
 
-    <!-- <List /> -->
-
     <Swipper />
   </div>
 </template>
@@ -30,6 +28,5 @@ export default {
 <style>
 .first-page {
   background-color: rgba(240, 240, 240, 1);
-  height: 100vh;
 }
 </style>

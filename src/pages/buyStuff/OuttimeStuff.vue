@@ -1,7 +1,13 @@
 <template>
   <div class="buy_stuff">
-    <StuffTop msg="续租宝贝" />
-    <StuffItem/>
+    <StuffTop msg="超期归还" target="Order" />
+    <van-card
+      :num="this.$route.params.out_days"
+      :price="orderDetailMessage.unitprice"
+      :desc="orderDetailMessage.proDetail"
+      :title="orderDetailMessage.proName"
+      :thumb="orderDetailMessage.proimgs[0].imgUrl"
+    />
 <!--    <ProviderAddress buy-or-rent="1" />-->
     <div class="stuff_carry">
       <van-row>
@@ -9,24 +15,24 @@
           <span>押金</span>
         </van-col>
         <van-col span="4" align="center" offset="15" class="cast_text">
-          {{stuffDetailMessage.deposit}}
+          {{orderDetailMessage.deposit}}
         </van-col>
       </van-row>
     </div>
     <div class="stuff_carry">
       <van-row>
         <van-col span="5">
-          <span>租赁天数</span>
+          <span>超期天数</span>
         </van-col>
         <van-col span="8" align="center" offset="11" class="cast_text">
-          <van-stepper v-model="days" />
+          {{this.$route.params.out_days}}
         </van-col>
       </van-row>
     </div>
     <div class="pay_bar">
       <van-submit-bar
-        :price="3020"
-        button-text="提交订单"
+        :price="orderDetailMessage.unitprice * this.$route.params.out_days * 100"
+        button-text="超期归还"
         @submit="onSubmit"
       />
     </div>
@@ -43,12 +49,14 @@
   import { Panel } from 'vant';
   import { SubmitBar } from 'vant';
   import { Stepper } from 'vant';
+  import axios from "axios";
+  import {HTTP_URL} from '@/store/const.js'
 
   Vue.use(Stepper);
   Vue.use(SubmitBar);
   Vue.use(Panel);
   export default {
-    name: "RentStuff",
+    name: "OuttimeStuff",
     components: {
       StuffItem, StuffTop, StuffAddressBar, ProviderAddress
     },
@@ -60,11 +68,31 @@
     computed: {
       ...mapGetters({
         stuffDetailMessage: "getStuffDetailMessage",
+        orderDetailMessage: "getOrderDetailMessage",
       }),
     },
     methods: {
       onSubmit(){
-
+        let req_url = `${HTTP_URL}/order/returnStuff/${this.orderDetailMessage.id}`;
+        axios.get(req_url)
+          .then(
+            res => {
+              this.$router.push({
+                name: "PersonalInList",
+                params: {
+                  name: "我租到的",
+                  //saleOrRent: 0买到，1租入
+                  saleOrRent: "1"
+                }
+              });
+              alert("success");
+              console.log(res);
+            },
+            rej => {
+              console.log("faild");
+              console.log(rej);
+            }
+          );
       }
     }
   }

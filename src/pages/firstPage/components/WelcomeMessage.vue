@@ -107,7 +107,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchArea: "fetchArea"
+      fetchArea: "fetchArea",
+      fetchFirstStuffListByLoc: "fetchFirstStuffListByLoc",
+      fetchLikeStuffList: "fetchLikeStuffList",
     }),
     clickLoc(){
       this.location_show=true;
@@ -123,10 +125,18 @@ export default {
       let activeArea = this.items[this.activeIndex].children.filter(area => area.id === this.activeId);
       console.log("activeArea", activeArea);
       console.log("activeArea text", activeArea[0].text);
+      this.fetchFirstStuffListByLoc({location_id: this.activeId});
+      this.$router.push({
+        name: "StuffList",
+        params: {
+          location: this.activeId,
+        }
+      })
     },
     onSearch(val) {
       Toast(val);
       console.log("handleSearch val", val);
+      this.fetchLikeStuffList({name: val})
       this.$router.push({
         name: "StuffList",
         params: {

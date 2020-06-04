@@ -1,5 +1,8 @@
 <template>
   <div class="user-edit">
+    <div class="user-back">
+      <van-icon name="down" size="20px" class="icon" />
+    </div>
     <div class="form">
       <van-form id="formCon" @submit="onSubmit" enctype="multipart/form-data">
         <div class="title form-item">
@@ -270,6 +273,11 @@
     background-color: rgba(240, 240, 240, 1);
     height: 100%;
   }
+  .user-edit >  .user-edit{
+    width: 30px;
+    height: 30px;
+    padding: 28px 0px 0px 28px;
+  }
   .location{
     text-align: center;
     height: 50px;
@@ -283,8 +291,9 @@
     height: 30px;
     padding: 28px 0px 0px 28px;
   }
-  .user-edit > .publish-back > .icon {
+  .user-edit > .user-back > .icon {
     transform: rotate(90deg);
+    margin: 25px 25px;
   }
 
   .user-edit > .publish-type {
@@ -315,7 +324,7 @@
 
   .form {
     padding: 12px 28px;
-    margin: 30% 0;
+    margin: 5% 0;
   }
 
   .form-item {

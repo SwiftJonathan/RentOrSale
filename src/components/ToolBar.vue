@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       currectPage: "firstPage",
-      showBarPage: ["/first-page", "/publish", "/stuff-list", "/personal"],
+      showBarPage: ["/", "/first-page", "/publish", "/stuff-list", "/personal"],
       menuInfo: [
         {
           key: "firstPage",
@@ -78,7 +78,7 @@ export default {
 #toolbar-wrapper {
   height: 10vh;
   width: 100%;
-  position: absolute;
+  /*position: absolute;*/
   bottom: 0px;
   border-radius: 20px 20px 0px 0px;
   box-shadow: 0px 5px 24px 0px rgba(0, 0, 0, 0.2);

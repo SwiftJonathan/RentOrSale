@@ -96,7 +96,7 @@ export default {
 }
 .swipper-body {
   width: 100vw;
-  height: 50vh;
+  height: 55vh;
 }
 .swipper-item {
   height: 50vh;
@@ -110,6 +110,7 @@ export default {
   position: relative;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 32px 32px 64px 0px;
+  overflow: hidden;
 }
 .swipper-tag {
   position: absolute;

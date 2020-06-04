@@ -60,41 +60,51 @@
               params: {
                 name: "我发布的",
                 //publishOrSail 发布或者卖出： 0发布，1卖出
-                publishOrSail: "0"
+                publishOrSail: "0",
+                typeMethod: '0',
               }
             })
           }
         },
         handleClickSail() {
-          this.beforeHandler();
-          this.$router.push({
-            name: "PersonalOutList",
-            params: {
-              name: "我卖出的",
-              //publishOrSail 发布或者卖出： 0发布，1卖出
-              publishOrSail: "1"
-            }
-          })
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalOutList",
+              params: {
+                name: "我卖出的",
+                //publishOrSail 发布或者卖出： 0发布，1卖出
+                publishOrSail: "1",
+                typeMethod: '1',
+              }
+            })
+          }
         },
         handleClickBuy() {
-          this.$router.push({
-            name: "PersonalInList",
-            params: {
-              name: "我买到的",
-              //saleOrRent: 0买到，1租入
-              saleOrRent: "0"
-            }
-          })
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalInList",
+              params: {
+                name: "我买到的",
+                //saleOrRent: 0买到，1租入
+                saleOrRent: "0",
+                typeMethod: '2',
+              }
+            })
+          }
+
         },
         handleClickRent() {
-          this.$router.push({
-            name: "PersonalInList",
-            params: {
-              name: "我租到的",
-              //saleOrRent: 0买到，1租入
-              saleOrRent: "1"
-            }
-          })
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalInList",
+              params: {
+                name: "我租到的",
+                //saleOrRent: 0买到，1租入
+                saleOrRent: "1",
+                typeMethod: '3',
+              }
+            })
+          }
         }
       }
     }

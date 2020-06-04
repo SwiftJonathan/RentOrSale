@@ -2,10 +2,10 @@
   <div class="top_bar">
     <van-row>
       <van-col span="2">
-        <van-icon name="arrow-left" />
+        <van-icon name="arrow-left" @click="clickReturn()" />
       </van-col>
       <van-col span="10" offset="5">
-        {{msg}}
+        {{msg}}-{{target}}
       </van-col>
     </van-row>
   </div>
@@ -21,7 +21,64 @@
   Vue.use(Icon);
     export default {
       name: "TopReturnBar",
-      props: ['msg']
+      props: ["msg", "target"],
+      methods: {
+        clickReturn(){
+          console.log("target", this.target);
+          this.$router.push({
+            name: this.target,
+          });
+        },
+        handleClickPulish() {
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalOutList",
+              params: {
+                name: "我发布的",
+                //publishOrSail 发布或者卖出： 0发布，1卖出
+                publishOrSail: "0"
+              }
+            })
+          }
+        },
+        handleClickSail() {
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalOutList",
+              params: {
+                name: "我卖出的",
+                //publishOrSail 发布或者卖出： 0发布，1卖出
+                publishOrSail: "1"
+              }
+            })
+          }
+        },
+        handleClickBuy() {
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalInList",
+              params: {
+                name: "我买到的",
+                //saleOrRent: 0买到，1租入
+                saleOrRent: "0"
+              }
+            })
+          }
+
+        },
+        handleClickRent() {
+          if (this.beforeHandler()){
+            this.$router.push({
+              name: "PersonalInList",
+              params: {
+                name: "我租到的",
+                //saleOrRent: 0买到，1租入
+                saleOrRent: "1"
+              }
+            })
+          }
+        }
+      }
     }
 </script>
 

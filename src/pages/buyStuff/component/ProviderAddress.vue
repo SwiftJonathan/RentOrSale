@@ -136,7 +136,8 @@
             params["unitprice"] = this.stuffDetailMessage.rentPrice;
             params["rentDays"] = this.days;
             params["stuffprice"] = this.stuffDetailMessage.rentPrice * this.days;
-            params["totalprice"] = this.postmethod === '1' ? '0' : this.stuffDetailMessage.freight + this.stuffDetailMessage.deposit + this.stuffDetailMessage.rentPrice * this.days;
+            params["totalprice"] = this.postmethod === '1' ? this.stuffDetailMessage.deposit + this.stuffDetailMessage.rentPrice * this.days : this.stuffDetailMessage.freight + this.stuffDetailMessage.deposit + this.stuffDetailMessage.rentPrice * this.days;
+            params["deposit"] = this.stuffDetailMessage.deposit;
           }
           console.log("providerAddress params", params);
           let req_url = `${HTTP_URL}/order/addBuyOrder`;
@@ -147,6 +148,9 @@
               res => {
                 console.log("sucess");
                 console.log(res);
+                this.$router.push({
+                  name: "FirstPage",
+                });
               },
               rej => {
                 console.log("faild");

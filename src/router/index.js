@@ -16,6 +16,7 @@ import PersonalInList from '../pages/personalList/PersonalInList'
 import PersonalOutList from '../pages/personalList/PersonalOutList'
 import Order from '../pages/order/Order'
 import UserEdit from '../pages/userEdit/UserEdit'
+import OuttimeStuff  from '../pages/buyStuff/OuttimeStuff'
 
 Vue.use(Router)
 
@@ -23,8 +24,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'FirstPage',
+      component: FirstPage
     },
     {
       path: '/first-page',
@@ -100,6 +101,11 @@ export default new Router({
       path: '/user-edit',
       name: 'UserEdit',
       component: UserEdit
+    },
+    {
+      path: '/outtime-stuff',
+      name: 'OuttimeStuff',
+      component: OuttimeStuff
     }
   ]
 })

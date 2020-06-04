@@ -1,7 +1,7 @@
 <template>
     <div class="person_list">
-      <TopReturnBar :msg="this.$route.params.name" />
-      <Item :rent_or_sell="this.$route.params.saleOrRent" out_or_in="1" />
+      <TopReturnBar :msg="this.$route.params.name" target="Personal"/>
+      <Item :rent_or_sell="this.$route.params.saleOrRent" out_or_in="1" :type_method="this.$route.params.typeMethod"/>
     </div>
 </template>
 

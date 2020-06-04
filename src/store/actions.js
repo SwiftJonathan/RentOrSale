@@ -267,6 +267,24 @@ export const fetchFirstPageRentStuffList = (context) => {
   }
 };
 
+export const fetchFirstStuffListByLoc = (context, payload) => {
+  console.log('fetchFirstStuffListByLoc');
+  const {location_id} = payload;
+  try {
+    axios.get(`${HTTP_URL}/pro/proByLoc/${location_id}`)
+      .then((res) => {
+        if (res.status === 200 && res.data) {
+          context.commit('setFirstPageStuffList', res.data);
+        }else {
+          console.log("pro use mock data");
+        }
+      });
+  }
+  catch (e) {
+    console.log("pro use mock data");
+  }
+};
+
 export const fetchPageStuffList = (context, payload) => {
   const {currPage} = payload;
   console.log('fetchFirstPageStuffList, currPage is ', currPage);

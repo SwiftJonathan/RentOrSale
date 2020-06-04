@@ -59,10 +59,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchCategoryList: "fetchCategoryList"
+      fetchCategoryList: "fetchCategoryList",
+      fetchCateStuffList: "fetchCateStuffList",
     }),
     handleCateClick(id) {
       console.log("handleCateClick id", id);
+      this.fetchCateStuffList({cate_id: id});
       this.$router.push({
         name: "StuffList",
         params: {

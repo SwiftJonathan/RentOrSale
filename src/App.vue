@@ -3,7 +3,10 @@
     <div id="app">
       <router-view />
     </div>
-    <ToolBar />
+    <div class="toolbar">
+      <ToolBar />
+    </div>
+
   </div>
 </template>
 
@@ -22,6 +25,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /*text-align: center;*/
   height: 100vh;
+  width: 100%;
   overflow: auto;
 }
+
+  .toolbar{
+    height: 10vh;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0px;
+  }
 </style>
